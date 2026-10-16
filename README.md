@@ -96,7 +96,7 @@ Los valores publicados corresponden a los colores predeterminados. Los temas con
 *   **Atajo Rápido Global:**
     *   La tecla `T` (en mayúscula o minúscula) conmuta el modo claro/oscuro desde cualquier parte del documento, con guarda activa para no interferir si el usuario está escribiendo en un campo de texto o editable.
 *   **Indicadores `:focus-visible`:**
-    *   La regla base de botones, enlaces y controles de actividades usa `outline: 2px solid var(--accent); outline-offset: 3px`. En las decisiones `.ydc`, el anillo de la opción usa `outline: 2px solid var(--focus-ring); outline-offset: 3px`; el foco del radio se representa en esa opción para evitar contornos duplicados.
+    *   La regla base de botones, enlaces y controles de actividades usa `outline: 2px solid var(--accent); outline-offset: 3px`. En las decisiones `.ydc`, `:focus-within` aplica `outline: 2px solid var(--focus-ring); outline-offset: 3px` a las tarjetas `.ydc-opt` del grupo que contiene el foco; el radio nativo no dibuja otro contorno. Falta validar en navegador si el anillo de todo el grupo se percibe con claridad.
 
 ---
 
