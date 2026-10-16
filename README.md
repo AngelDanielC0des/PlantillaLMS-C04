@@ -96,7 +96,7 @@ Los valores publicados corresponden a los colores predeterminados. Los temas con
 *   **Atajo Rápido Global:**
     *   La tecla `T` (en mayúscula o minúscula) conmuta el modo claro/oscuro desde cualquier parte del documento, con guarda activa para no interferir si el usuario está escribiendo en un campo de texto o editable.
 *   **Indicadores `:focus-visible`:**
-    *   Anillo de foco prominente con `outline: 2px solid var(--accent); outline-offset: 2px` en todos los controles interactivos nativos y personalizados.
+    *   Los controles generales usan `outline: 2px solid var(--accent); outline-offset: 3px`. En las decisiones `.ydc`, el anillo de la opción usa `outline: 2px solid var(--focus-ring); outline-offset: 3px`; el foco del radio se representa en esa opción para evitar contornos duplicados.
 
 ---
 
@@ -106,7 +106,8 @@ La plantilla integra una serie de componentes de aprendizaje activo que refuerza
 
 1.  **Decisiones del Reto (`.ydc-item`):**
     *   Cada bloque de decisión incorpora un componente nativo accesible `<details class="ydc-help">` con `<summary>`, que ofrece guía pedagógica sin bloquear la vista.
-    *   Al seleccionar una opción (`input[type="radio"]`), la ilustración SVG superior asociada `.yart-says > .yart` recibe una micro-animación sutil de rebote elástico (`turn-pop`), ofreciendo retroalimentación visual inmediata.
+    *   Al enfocar una decisión o seleccionar una opción, la figura asociada `.ydc-person` recibe un micro-movimiento breve; se desactiva con `prefers-reduced-motion: reduce`.
+    *   Las decisiones «Aceptar», «Obstáculo» y «Valoración» incorporan escenas SVG adaptadas a las variables `--yart-*`, visibles desde 720 px. En anchos menores se mantienen las figuras compactas originales.
     *   La elección muestra una consecuencia explicativa inmediata (`.ydc-out`) y resume el aprendizaje en el panel final «Te llevas».
 2.  **Emparejamiento de Conceptos (`.mp`):**
     *   Chips de origen (`.mp-chip`) y zonas de destino (`.mp-zone`) accesibles con teclado mediante `role="button"`, `tabindex="0"` y `aria-pressed`.
@@ -120,6 +121,8 @@ La plantilla integra una serie de componentes de aprendizaje activo que refuerza
 6.  **Ayudas contextuales de decisión:**
     *   Cada una de las cinco decisiones incluye un botón de ayuda con `aria-describedby` y una descripción `role="tooltip"`.
     *   La ayuda se abre con foco de teclado, puntero o toque; se cierra con `Escape` o al salir del control y se ofrece en español e inglés.
+7.  **Cierre de la clase:**
+    *   Al pulsar «Terminar esta clase» con todos los hitos requeridos completados, aparece una celebración SVG de 1,7 s. No retrasa el evento de cierre enviado al LMS; con `prefers-reduced-motion: reduce` se muestra un check estático.
 
 ---
 
@@ -179,7 +182,7 @@ El registro de cambios conserva resultados de una batería anterior de pruebas a
     *   Verificado en viewport de 320 px con el ajuste tipográfico máximo (`xxl`). La columna de lectura se adapta sin cortar contenido ni expulsar elementos de la pantalla.
 3.  **Auditoría de Sintaxis:**
     *   Scripts inline y archivo `lms-i18n.js` verificados con el motor de análisis sintáctico de Node.js (`vm.Script`): **0 errores de sintaxis**.
-    *   Validación JSON histórica: el recuento actual es de 172 claves hoja por idioma (`es` y `en`), incluidas las ayudas y tooltips añadidos en esta revisión.
+    *   Validación JSON: el recuento comprobado es de 173 claves hoja por idioma (`es` y `en`), incluidas las ayudas y tooltips.
 4.  **Persistencia:**
     *   Validada la persistencia en `localStorage` de tamaño tipográfico, familia, tema y paleta seleccionada.
 
@@ -220,6 +223,6 @@ El generador de marca ajusta el texto y los bordes a ratios mínimos de contrast
 
 - Se incorporaron tooltips contextuales a las cinco decisiones. Cada botón tiene `aria-describedby`, estado `aria-expanded` y un destino `role="tooltip"`; se abren con foco o puntero y se cierran con `Escape` o al perder foco.
 - Las ayudas desplegables de cada decisión ahora explican la tarea concreta. Los textos se localizan en español e inglés, tanto desde el HTML autónomo como desde el diccionario LMS.
-- `i18n.json` contiene 172 claves hoja por idioma tras añadir el cierre traducible de Ajustes. El histórico de este documento y `cambios.md` tenía recuentos anteriores de 146 y 171.
+- `i18n.json` contiene 173 claves hoja por idioma tras añadir el cierre traducible de Ajustes. El histórico de este documento y `cambios.md` tenía recuentos anteriores de 146 y 171.
 - La etiqueta de carga del conector LMS permanece desactivada hasta disponer de una ruta pública válida. La integración con un host LMS y las pruebas con lectores de pantalla requieren ese entorno y no se consideran verificadas aquí.
 - Las comprobaciones ejecutadas validan sintaxis de scripts, paridad de claves y estructura/asociación/localización de tooltips. No se pudo completar la interacción visual en navegador desde esta ejecución: el panel no permite abrir recursos locales mediante la política de URL. Tampoco se probó un LMS real ni lector de pantalla, por lo que no se afirma certificación WCAG completa.

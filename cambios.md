@@ -208,9 +208,9 @@ Hashes calculados sobre los archivos finales entregados en el paquete:
 - Se reemplazaron las ayudas genéricas repetidas por instrucciones específicas para cada una de las cinco decisiones (`plan`, `aceptar`, `obstaculo`, `valoracion` y `antes`).
 - Se añadieron tooltips contextuales con botones de 44 × 44 px, `aria-describedby`, `aria-expanded` y destinos con `role="tooltip"`. El comportamiento abre con foco o puntero, cierra con `Escape` y al perder foco o salir el puntero.
 - Los rótulos y contenidos de ayuda están disponibles en español e inglés en `i18n.json`, con respaldo bilingüe gestionado por la plantilla.
-- El diccionario contiene ahora 172 claves hoja por idioma; el recuento de 146 registrado en entradas previas era anterior a las ampliaciones.
+- El diccionario contiene ahora 173 claves hoja por idioma; el recuento de 146 registrado en entradas previas era anterior a las ampliaciones.
 - La documentación limita expresamente los resultados Playwright anteriores a su alcance histórico. Esta actualización no certifica compatibilidad con lectores de pantalla ni integración con un LMS real; la etiqueta opt-in del cargador continúa comentada hasta tener URL pública y configuración de origen.
-- Verificación ejecutada: los dos scripts inline pasan `vm.Script`; `i18n.json` contiene 172 claves hoja en cada idioma con paridad entre `es` y `en`; la inspección estática confirma cinco decisiones, cinco ayudas contextuales, destinos `role="tooltip"`, asociaciones `aria-describedby`, cierre Escape y ganchos de localización. No se completó interacción visual en navegador ni verificación en LMS/lector de pantalla: el panel disponible rechazó la apertura del recurso local por su política de URL. No se afirma certificación WCAG completa.
+- Verificación ejecutada en esa intervención: los dos scripts inline pasan `vm.Script`; se comprobó la paridad de `i18n.json`; la inspección estática confirma cinco decisiones, cinco ayudas contextuales, destinos `role="tooltip"`, asociaciones `aria-describedby`, cierre Escape y ganchos de localización. No se completó interacción visual en navegador ni verificación en LMS/lector de pantalla: el panel disponible rechazó la apertura del recurso local por su política de URL. No se afirma certificación WCAG completa.
 
 
 ## 8. Tipografía, paletas y vistas móviles (16 de octubre de 2026)
@@ -219,5 +219,12 @@ Hashes calculados sobre los archivos finales entregados en el paquete:
 - La lectura de preferencias convierte los valores antiguos `brand`, `serif` y `system` a `sans`; conserva `legible`, el resto de opciones y el contrato del canal `thepower:apply`. La selección se refleja en el atributo `data-font`, el menú, la persistencia y los iframes de actividades.
 - Se actualizaron las cuatro paletas predeterminadas. El generador de marca ahora busca contraste de texto contra la superficie más exigente, incluido el papel cálido, y eleva los colores de borde a 3.2:1 como margen de implementación.
 - El índice móvil y Ajustes usan vistas de pantalla completa con `100dvh`, áreas seguras, botón de cierre táctil de 44 px, foco modal y fondo inerte. Las opciones segmentadas de Ajustes envuelven sus filas; se evita el desplazamiento horizontal independiente. En alturas muy reducidas o con zoom elevado, el viewport completo de cada vista puede desplazarse para mantener todos los controles accesibles.
-- `i18n.json` contiene 172 claves hoja por idioma con paridad entre español e inglés. Se actualizó la tabla de contraste de `README.md` con ratios mínimos entre cada conjunto de superficies y texto/controles.
+- `i18n.json` contiene 173 claves hoja por idioma con paridad entre español e inglés. Se actualizó la tabla de contraste de `README.md` con ratios mínimos entre cada conjunto de superficies y texto/controles.
 - Verificación de esta intervención: análisis de contraste por código para las cuatro paletas predeterminadas; evaluación de los tokens generados frente a CSS; comprobaciones de sintaxis de scripts y paridad de traducciones. La interacción visual en un navegador móvil, lectores de pantalla y un LMS real siguen sin verificarse en este entorno.
+
+
+## 9. Alineación documental y revisión humana (16 de octubre de 2026)
+
+- Recuento ejecutado de `i18n.json`: 173 claves hoja en `es` y 173 en `en`, con paridad exacta.
+- Se documentó el anillo de foco de las opciones `.ydc` y su consolidación con el foco del radio; también se registró el escalonado explícito de color y tiempo de las partículas de cierre.
+- La validación visual en navegador sigue pendiente; este registro no certifica el aspecto de los cuatro temas ni el encuadre responsive.
