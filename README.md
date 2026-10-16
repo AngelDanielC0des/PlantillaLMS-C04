@@ -26,7 +26,7 @@ Este paquete contiene la plantilla interactiva para plataformas de aprendizaje v
 | :--- | :--- | :--- |
 | `C04-reto-un-aviso-a-tiempo (nuevo).html` | **Plantilla Maestra** | Documento interactivo para el alumno. Integra los estilos CSS encapsulados, marcado HTML5 semántico, componentes didácticos y controladores de estado cliente. |
 | `C04-reto-un-aviso-a-tiempo(antiguo).html` | **Línea Base Histórica** | Archivo original de partida conservado intacto para trazabilidad, comparaciones de regresión y auditorías de código. |
-| `i18n.json` | **Diccionario Externo** | Repositorio de 173 claves hoja por idioma (`es` y `en`) con todas las cadenas de interfaz, accesibilidad, textos pedagógicos y respuestas. |
+| `i18n.json` | **Diccionario Externo** | Repositorio de 174 claves hoja por idioma (`es` y `en`) con todas las cadenas de interfaz, accesibilidad, textos pedagógicos y respuestas. |
 | `lms-i18n.js` | **Conector LMS** | Script ligero y asíncrono para consumir `i18n.json`, traducir el árbol DOM, actualizar atributos ARIA y responder a eventos `tp:languagechange`. |
 | `cambios.md` | **Registro de Cambios** | Historial técnico de auditoría y transformaciones detalladas respecto al original antiguo. |
 | `README.md` | **Manual Técnico** | Documentación de arquitectura, diseño, contrastes, accesibilidad e instrucciones de despliegue. |
@@ -96,7 +96,7 @@ Los valores publicados corresponden a los colores predeterminados. Los temas con
 *   **Atajo Rápido Global:**
     *   La tecla `T` (en mayúscula o minúscula) conmuta el modo claro/oscuro desde cualquier parte del documento, con guarda activa para no interferir si el usuario está escribiendo en un campo de texto o editable.
 *   **Indicadores `:focus-visible`:**
-    *   La regla base de botones, enlaces y controles de actividades usa `outline: 2px solid var(--accent); outline-offset: 3px`. En las decisiones `.ydc`, el anillo de la opción usa `outline: 2px solid var(--focus-ring); outline-offset: 3px`; el foco del radio se representa en esa opción para evitar contornos duplicados.
+    *   La regla base de botones, enlaces y controles de actividades usa `outline: 2px solid var(--accent); outline-offset: 3px`. La barra `.tp-icon` coloca el anillo de `--focus-ring` en el interior para mantenerlo dentro del viewport. En las decisiones `.ydc`, el anillo de la opción usa `outline: 2px solid var(--focus-ring); outline-offset: 3px`; el foco del radio se representa en esa opción para evitar contornos duplicados.
 
 ---
 
@@ -182,7 +182,7 @@ El registro de cambios conserva resultados de una batería anterior de pruebas a
     *   Verificado en viewport de 320 px con el ajuste tipográfico máximo (`xxl`). La columna de lectura se adapta sin cortar contenido ni expulsar elementos de la pantalla.
 3.  **Auditoría de Sintaxis:**
     *   Scripts inline y archivo `lms-i18n.js` verificados con el motor de análisis sintáctico de Node.js (`vm.Script`): **0 errores de sintaxis**.
-    *   Validación JSON: el recuento comprobado es de 173 claves hoja por idioma (`es` y `en`), incluidas las ayudas y tooltips.
+    *   Validación JSON: el recuento comprobado es de 174 claves hoja por idioma (`es` y `en`), incluidas las ayudas y tooltips.
 4.  **Persistencia:**
     *   Validada la persistencia en `localStorage` de tamaño tipográfico, familia, tema y paleta seleccionada.
 
@@ -205,7 +205,7 @@ El registro de cambios conserva resultados de una batería anterior de pruebas a
 ## 9. Navegación y ajustes móviles
 
 ### 9.1. Índice de secciones
-En anchos de hasta 860 px, el botón de cabecera abre el índice en una vista modal a pantalla completa. El viewport usa unidades dinámicas y respeta las áreas seguras del dispositivo. Los cinco destinos usan filas de ancho completo; el botón de cierre mide 44×44 px. Al abrirse, el foco pasa a la sección activa, el contenido de fondo queda inerte y el foco se mantiene dentro de la vista. Escape, el botón de cierre y la selección de una sección cierran el índice; después el foco vuelve al disparador.
+En anchos de hasta 860 px, el botón de cabecera abre el índice como diálogo modal a pantalla completa, con una única cabecera visible «Secciones». El viewport usa unidades dinámicas y respeta las áreas seguras del dispositivo. Los cinco destinos usan filas de ancho completo; el botón de cierre mide 44×44 px. Al abrirse, el foco pasa al botón de cierre, el contenido de fondo queda inerte y el foco se mantiene dentro del diálogo. Escape, el botón de cierre y la selección de una sección cierran el índice; después el foco vuelve al disparador. En escritorio, el índice conserva la semántica de `aside` y no se marca como modal.
 
 ### 9.2. Ajustes de lectura
 En anchos de hasta 860 px, Ajustes ocupa la pantalla completa con cabecera fija, botón de cierre, áreas seguras y controles dispuestos en una columna. Las opciones segmentadas se envuelven en filas, sin una franja con desplazamiento horizontal. Si la altura visible es reducida o el zoom supera el espacio disponible, se desplaza la vista completa como una unidad para que ningún ajuste quede inaccesible.
@@ -223,6 +223,6 @@ El generador de marca ajusta el texto y los bordes a ratios mínimos de contrast
 
 - Se incorporaron tooltips contextuales a las cinco decisiones. Cada botón tiene `aria-describedby`, estado `aria-expanded` y un destino `role="tooltip"`; se abren con foco o puntero y se cierran con `Escape` o al perder foco.
 - Las ayudas desplegables de cada decisión ahora explican la tarea concreta. Los textos se localizan en español e inglés, tanto desde el HTML autónomo como desde el diccionario LMS.
-- `i18n.json` contiene 173 claves hoja por idioma tras añadir el cierre traducible de Ajustes; los recuentos de registros anteriores quedaron superados por ampliaciones posteriores.
+- `i18n.json` contiene 174 claves hoja por idioma tras añadir el nombre accesible traducible de la navegación interior del índice; los recuentos históricos anteriores corresponden a versiones previas.
 - La etiqueta de carga del conector LMS permanece desactivada hasta disponer de una ruta pública válida. La integración con un host LMS y las pruebas con lectores de pantalla requieren ese entorno y no se consideran verificadas aquí.
-- Las comprobaciones ejecutadas validan sintaxis de scripts, paridad de claves y estructura/asociación/localización de tooltips. No se pudo completar la interacción visual en navegador desde esta ejecución: el panel no permite abrir recursos locales mediante la política de URL. Tampoco se probó un LMS real ni lector de pantalla, por lo que no se afirma certificación WCAG completa.
+- En la revisión del 16 de octubre de 2026 se reprodujeron y verificaron con Playwright/Chromium desde disco la barra de foco, el índice móvil y el cierre en viewports representativos. La validación con lector de pantalla y la integración con un LMS real siguen pendientes; no se afirma certificación WCAG completa.

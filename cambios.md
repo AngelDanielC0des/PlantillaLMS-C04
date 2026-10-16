@@ -103,7 +103,7 @@ Antes de aplicar las correcciones, se auditaron las versiones previas en navegad
 ## 4. Nuevos Módulos y Recursos Incorporados
 
 ### 4.1. Diccionario Bilingüe (`i18n.json`)
-*   El diccionario contiene actualmente 173 claves hoja para español (`es`) y 173 para inglés (`en`), con paridad entre ambos idiomas.
+*   El diccionario contiene actualmente 174 claves hoja para español (`es`) y 174 para inglés (`en`), con paridad entre ambos idiomas.
 *   Familias de claves cubiertas:
     *   `settings.*`: títulos, etiquetas de herramientas, nombres de paletas y etiquetas de tamaño tipográfico (`size92` a `size200`).
     *   `theme.*`: etiquetas del conmutador rápido y del botón de modo.
@@ -230,4 +230,15 @@ Hashes de la instantánea registrada antes de las revisiones posteriores:
 
 - Recuento ejecutado de `i18n.json`: 173 claves hoja en `es` y 173 en `en`, con paridad exacta.
 - Se documentó el anillo de foco de las opciones `.ydc` y su consolidación con el foco del radio; también se registró el escalonado explícito de color y tiempo de las partículas de cierre.
-- La validación visual en navegador sigue pendiente; este registro no certifica el aspecto de los cuatro temas ni el encuadre responsive.
+- En el momento de esta entrada, la validación visual en navegador seguía pendiente; la revisión Playwright posterior queda registrada en la sección 10 y no certifica lectores de pantalla ni LMS real.
+
+
+## 10. Foco, índice móvil y cierre accesible (16 de octubre de 2026)
+
+- Se corrigió el foco de los controles `.tp-icon` con un anillo interior de `--focus-ring`; el botón conserva su objetivo de 44 × 44 px y el contorno queda dentro de la ventana.
+- El índice móvil muestra una sola cabecera «Secciones». El `nav` interior tiene un nombre accesible localizado; el `aside` usa esa cabecera como nombre y solo adopta `role="dialog"`/`aria-modal="true"` mientras está abierto en móvil. En escritorio conserva el landmark nativo de `aside`.
+- Se restableció `position: fixed` en móvil después de la regla posterior `.llr-toc { position: relative }`, que había encogido el panel al alto del layout; a 390 y 320 px las cinco entradas caben sin scroll interno.
+- Al abrir el diálogo, el foco inicial va al cierre, Tab queda contenido, Escape cierra y devuelve el foco al disparador. El resto del documento queda `inert` mientras el diálogo está abierto, excepto el telón que permite cerrarlo.
+- La celebración reserva su espacio dentro de los controles de cierre mientras está activa, evitando cubrir el texto anterior y el botón. No se cambió el instante del evento LMS ni la presentación estática con movimiento reducido.
+- Se añadió `navigation.sectionLinks` a `i18n.json`; el recuento actual es de 174 claves hoja en `es` y 174 en `en`, con paridad.
+- Playwright/Chromium desde el archivo local verificó el foco de la barra en Día y Noche a 1280 px, el índice a 390 y 320 px, el ciclo de foco/Escape/fondo inerte y la intersección de la celebración con el texto anterior. La validación con lector de pantalla y LMS real sigue pendiente.

@@ -226,6 +226,7 @@
 }
 
 .ypr-controls{position:relative;margin-top:24px;padding:16px;border-top:1px solid var(--line)}
+.ypr-controls.is-celebrating{padding-top:112px}
 .ypr-controls button{min-height:44px;padding:12px 20px;background:var(--accent);color:var(--bg);
   border:2px solid var(--accent);border-radius:var(--r);font:600 1rem var(--font-ui);cursor:pointer;
   transition:transform 160ms var(--ease),box-shadow 160ms var(--ease),background 160ms var(--ease)}
@@ -238,7 +239,7 @@
 @keyframes ypr-ready-in{from{opacity:0;transform:scale(.75)}to{opacity:1;transform:scale(1)}}
 .ypr-controls button:focus-visible{outline:3px solid var(--fg);outline-offset:4px}
 .ypr-controls p{font:400 .9375rem/1.5 var(--font-ui);color:var(--muted);margin:12px 0 0}
-.ypr-celebration{position:absolute;left:50%;bottom:calc(100% + 2px);width:180px;height:96px;transform:translateX(-50%);
+.ypr-celebration{position:absolute;left:50%;top:8px;bottom:auto;width:180px;height:96px;transform:translateX(-50%);
   opacity:0;visibility:hidden;pointer-events:none;z-index:2}
 .ypr-celebration svg{display:block;width:100%;height:100%;overflow:visible}
 .ypr-celebration .ypr-ring{fill:none;stroke:var(--highlight);stroke-width:2.5;opacity:0;transform-box:fill-box;transform-origin:center}
@@ -458,6 +459,7 @@ button:focus-visible,a:focus-visible,.mp-chip:focus-visible,.mp-zone:focus-visib
   display:inline-flex;align-items:center;justify-content:center;position:relative;
   transition:background var(--fast),color var(--fast)}
 .tp-icon::after{content:"";position:absolute;inset:0;pointer-events:none}
+.tp-icon:focus-visible{outline:2px solid var(--focus-ring);outline-offset:-3px}
 .tp-icon:hover,.tp-prefs[open] .tp-icon{background:var(--bg-deep)}
 .tp-icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 /* sun and moon stacked; the incoming one spins and grows, the outgoing one rises */
@@ -1045,6 +1047,7 @@ html[data-theme="dark"] .tp-seg[data-only-light],html:not([data-theme="dark"]) .
    TOC paints beyond its narrow grid track without moving the reading pane. */
 .llr-reader{overflow-x:hidden}
 .llr-reading-pane{overflow-x:hidden}
+@media(max-width:860px){.llr-toc{position:fixed}}
 
 /* the section title, a bit more restrained so the subsection can breathe */
 .llr-section>h3{font-size:clamp(1.55rem,2.6vw,1.95rem);line-height:1.16;
@@ -1944,15 +1947,14 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
   <div data-modalities data-mode="text">
 <div class="llr-layout">
     <div class="llr-toc-backdrop" id="llr-toc-backdrop" aria-hidden="true"></div>
-    <aside class="llr-toc" id="llr-toc" role="region" aria-label="Índice de secciones" aria-modal="false" data-i18n-aria-label="navigation.tocRegion">
+    <aside class="llr-toc" id="llr-toc" aria-labelledby="llr-toc-dialog-title">
       <div class="llr-toc-head-mobile">
         <div id="llr-toc-dialog-title" data-i18n="legacy.content.015" class="llr-toc-label" data-es="Secciones" data-en="Secciones">Secciones</div>
         <button type="button" class="llr-toc-close" id="llr-toc-close" aria-label="Cerrar índice" data-i18n-aria-label="navigation.closeToc">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
-      <nav>
-        <div data-i18n="legacy.content.015" class="llr-toc-label" data-es="Secciones" data-en="Secciones">Secciones</div>
+      <nav aria-label="Navegación por secciones" data-i18n-aria-label="navigation.sectionLinks">
           <button class="llr-toc-link" data-target="s-1-un-momento-para">
             <span class="llr-toc-no"><span data-i18n="course.content.text005">1</span></span>
             <div><span data-i18n="legacy.content.016" data-es="Un momento para probarlo" data-en="Un momento para probarlo">Un momento para probarlo</span></div>
@@ -2436,26 +2438,38 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
     const tocDrawer=document.getElementById("llr-toc");
     const tocBackdrop=document.getElementById("llr-toc-backdrop");
     const tocClose=document.getElementById("llr-toc-close");
-    if(tocDrawer)tocDrawer.setAttribute("aria-labelledby","llr-toc-dialog-title");
-
+    const inertBefore=new Map();
+    function setDrawerBackgroundInert(active){
+      if(active){
+        for(let node=tocDrawer;node&&node!==document.body;node=node.parentElement){
+          const parent=node.parentElement;if(!parent)continue;
+          [...parent.children].forEach(sibling=>{
+            if(sibling===node||sibling===tocBackdrop)return;
+            if(!inertBefore.has(sibling))inertBefore.set(sibling,sibling.inert);
+            sibling.inert=true;
+          });
+        }
+      }else{
+        inertBefore.forEach((wasInert,node)=>{node.inert=wasInert;});
+        inertBefore.clear();
+      }
+    }
     function setDrawerOpen(open){
       if(!tocDrawer)return;
-      const isOpen=!!open;
+      const mobile=matchMedia("(max-width:860px)").matches;
+      const isOpen=!!open&&mobile,hadFocus=tocDrawer.contains(document.activeElement);
       tocDrawer.classList.toggle("is-open",isOpen);
       if(tocBackdrop)tocBackdrop.classList.toggle("is-open",isOpen);
       if(navBtn)navBtn.setAttribute("aria-expanded",isOpen?"true":"false");
-      const mobile=matchMedia("(max-width:860px)").matches;
-      tocDrawer.setAttribute("role",mobile&&isOpen?"dialog":"region");
-      tocDrawer.setAttribute("aria-modal",mobile&&isOpen?"true":"false");
-      if(pane)pane.inert=!!(mobile&&isOpen);
-      const topbar=document.querySelector(".llr-topbar"),langSwitch=document.querySelector(".tp-lang");if(topbar)topbar.inert=!!(mobile&&isOpen);if(langSwitch){langSwitch.inert=!!(mobile&&isOpen);langSwitch.style.visibility=mobile&&isOpen?"hidden":"";}
+      if(isOpen){tocDrawer.setAttribute("role","dialog");tocDrawer.setAttribute("aria-modal","true");}
+      else{tocDrawer.removeAttribute("role");tocDrawer.removeAttribute("aria-modal");}
+      setDrawerBackgroundInert(isOpen);
       if(isOpen){
-        const f=tocDrawer.querySelector(".llr-toc-link.active")||tocDrawer.querySelector(".llr-toc-link")||tocClose;
-        if(f)setTimeout(()=>f.focus(),30);
-      }else{
-        if(navBtn&&(tocDrawer.contains(document.activeElement)||(tocBackdrop&&tocBackdrop.contains(document.activeElement)))){
-          navBtn.focus();
-        }
+        const f=tocClose||tocDrawer.querySelector(".llr-toc-link");
+        if(f)requestAnimationFrame(()=>f.focus());
+      }else if(hadFocus){
+        if(navBtn&&navBtn.getClientRects().length)navBtn.focus();
+        else{const f=tocDrawer.querySelector(".llr-toc-link.active")||tocDrawer.querySelector(".llr-toc-link");if(f)f.focus();}
       }
     }
     if(navBtn)navBtn.addEventListener("click",()=>{
@@ -2482,6 +2496,9 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
         }
       });
     }
+    window.addEventListener("resize",()=>{
+      if(tocDrawer&&tocDrawer.classList.contains("is-open")&&!matchMedia("(max-width:860px)").matches)setDrawerOpen(false);
+    });
 
     function canScroll(el,dy){
       for(let n=el;n&&n!==document.body;n=n.parentElement){
