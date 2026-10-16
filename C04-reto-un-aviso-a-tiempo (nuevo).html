@@ -958,6 +958,7 @@ html[data-theme="dark"] .tp-seg[data-only-light],html:not([data-theme="dark"]) .
   transition:grid-template-columns var(--medium)}
 .llr-toc{position:relative;transition:width var(--medium),padding var(--medium),
   background var(--medium),box-shadow var(--medium)}
+.llr-toc-rail-handle{display:none}
 
 .llr-toggle{flex:none;width:34px;height:34px;border-radius:10px;cursor:pointer;
   border:1px solid var(--line-strong);background:var(--bg);display:grid;place-items:center;
@@ -986,6 +987,23 @@ html[data-theme="dark"] .tp-seg[data-only-light],html:not([data-theme="dark"]) .
 @media(min-width:861px){
   /* Keep grid sizing desktop-only; the earlier <=860px flex layout must win. */
   .llr-layout{display:grid;grid-template-columns:var(--toc-w,264px) minmax(0,1fr)}
+
+  .llr-toc-rail-handle{position:absolute;z-index:21;top:50vh;left:0;transform:translateY(-50%);
+    display:grid;place-items:center;width:44px;height:56px;padding:0;border:0;border-radius:0;
+    color:var(--accent);background:transparent;cursor:pointer;outline:none}
+  .llr-toc-rail-handle::before{content:"";position:absolute;inset:0 auto 0 0;width:14px;box-sizing:border-box;
+    border:1px solid var(--accent);border-left:0;border-radius:0 9px 9px 0;background:var(--bg);
+    box-shadow:0 2px 8px color-mix(in srgb,var(--fg) 12%,transparent);
+    transition:width var(--fast),box-shadow var(--fast)}
+  .llr-toc-rail-handle svg{position:absolute;z-index:1;top:50%;left:3px;width:8px;height:16px;transform:translateY(-50%);
+    fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.78;
+    transition:opacity var(--fast),transform var(--fast)}
+  .llr-layout.tocmin .llr-toc:hover .llr-toc-rail-handle,
+  .llr-layout.tocmin .llr-toc:focus-within .llr-toc-rail-handle:not(:focus-visible){width:18px}
+  .llr-toc-rail-handle:hover::before,
+  .llr-toc-rail-handle:focus-visible::before{width:18px;box-shadow:inset 0 0 0 2px var(--focus-ring),0 2px 8px color-mix(in srgb,var(--fg) 12%,transparent)}
+  .llr-toc-rail-handle:hover svg,
+  .llr-toc-rail-handle:focus-visible svg{opacity:1;transform:translate(2px,-50%)}
 
   /* The collapsed rail and its overlay share one full-height layout. Keep the
      label out of the flexible link stack, then distribute each section evenly
@@ -1948,6 +1966,9 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
 <div class="llr-layout">
     <div class="llr-toc-backdrop" id="llr-toc-backdrop" aria-hidden="true"></div>
     <aside class="llr-toc" id="llr-toc" aria-labelledby="llr-toc-dialog-title">
+      <button type="button" class="llr-toc-rail-handle" aria-controls="llr-toc" aria-label="Abrir índice de secciones" data-i18n-aria-label="navigation.openToc">
+        <svg viewBox="0 0 12 20" aria-hidden="true" focusable="false"><path d="m4 3 5 7-5 7"/></svg>
+      </button>
       <div class="llr-toc-head-mobile">
         <div id="llr-toc-dialog-title" data-i18n="legacy.content.015" class="llr-toc-label" data-es="Secciones" data-en="Secciones">Secciones</div>
         <button type="button" class="llr-toc-close" id="llr-toc-close" aria-label="Cerrar índice" data-i18n-aria-label="navigation.closeToc">
@@ -2438,6 +2459,7 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
     const pane=document.querySelector(".llr-reading-pane");
     const toggle=document.querySelector(".llr-toggle");
     const toc=[...document.querySelectorAll(".llr-toc-link")];
+    const railHandle=document.querySelector(".llr-toc-rail-handle");
     const targets=[...document.querySelectorAll("[data-section]")];
     const progress=document.querySelector(".llr-progress span");
     const TOC_KEY="tp-toc";
@@ -2541,6 +2563,11 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
        collapse button, but if a page adds one it still works. */
     setMin(true,false);
     if(toggle)toggle.addEventListener("click",()=>setMin(!layout.classList.contains("tocmin"),true));
+    if(railHandle)railHandle.addEventListener("click",()=>{
+      if(!window.matchMedia("(min-width:861px)").matches)return;
+      const active=toc.find(link=>link.classList.contains("active"))||toc[0];
+      if(active)active.focus({preventScroll:true});
+    });
     function topOf(el){
       const p=pane.getBoundingClientRect(),r=el.getBoundingClientRect();
       return r.top-p.top+pane.scrollTop;

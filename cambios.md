@@ -247,3 +247,8 @@ Hashes de la instantánea registrada antes de las revisiones posteriores:
 
 - Al elegir una sección en el índice, el foco pasa a su encabezado después de cerrar el diálogo móvil; Escape sin elegir mantiene el retorno al disparador.
 - Si Ajustes cruza el breakpoint de 860 px mientras está abierto, se cierra, retira `inert` y devuelve el foco a su botón. Los cambios de ancho que no cruzan el breakpoint no cierran el panel.
+
+## 12. Asa del índice lateral en escritorio (16 de octubre de 2026)
+
+- El rail colapsado de 44 px incorpora un asa ocre centrada con chevron. Hover y `:focus-within` mantienen la apertura existente; activar el botón enfoca la sección actual. Usa la clave localizada `navigation.openToc`, sin añadir claves i18n.
+- El asa solo se presenta desde 861 px; el diálogo del índice móvil no cambia.
