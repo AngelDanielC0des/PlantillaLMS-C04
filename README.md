@@ -26,7 +26,7 @@ Este paquete contiene la plantilla interactiva para plataformas de aprendizaje v
 | :--- | :--- | :--- |
 | `C04-reto-un-aviso-a-tiempo (nuevo).html` | **Plantilla Maestra** | Documento interactivo para el alumno. Integra los estilos CSS encapsulados, marcado HTML5 semántico, componentes didácticos y controladores de estado cliente. |
 | `C04-reto-un-aviso-a-tiempo(antiguo).html` | **Línea Base Histórica** | Archivo original de partida conservado intacto para trazabilidad, comparaciones de regresión y auditorías de código. |
-| `i18n.json` | **Diccionario Externo** | Repositorio de 172 claves hoja por idioma (`es` y `en`) con todas las cadenas de interfaz, accesibilidad, textos pedagógicos y respuestas. |
+| `i18n.json` | **Diccionario Externo** | Repositorio de 173 claves hoja por idioma (`es` y `en`) con todas las cadenas de interfaz, accesibilidad, textos pedagógicos y respuestas. |
 | `lms-i18n.js` | **Conector LMS** | Script ligero y asíncrono para consumir `i18n.json`, traducir el árbol DOM, actualizar atributos ARIA y responder a eventos `tp:languagechange`. |
 | `cambios.md` | **Registro de Cambios** | Historial técnico de auditoría y transformaciones detalladas respecto al original antiguo. |
 | `README.md` | **Manual Técnico** | Documentación de arquitectura, diseño, contrastes, accesibilidad e instrucciones de despliegue. |
@@ -57,8 +57,8 @@ Ambos controles comparten el despachador central `toggleTheme()` y actualizan si
 *   Persistencia: se almacena en `localStorage` bajo la clave del curso.
 
 ### 3.3. Animaciones y `prefers-reduced-motion`
-*   **Glifo Sol/Luna:** Rota suavemente 360° al cambiar de modo mediante la clase temporal `.toggled`.
-*   **Rueda de Ajustes (`.tp-prefs-btn svg`):** Gira sutilmente hacia la derecha (+55°) al abrirse (`.turn-open`) y hacia la izquierda (-55°) al cerrarse (`.turn-close`).
+*   **Glifo Sol/Luna:** Cambia con una entrada y salida breves de escala y rotación al alternar el tema; respeta `prefers-reduced-motion`.
+*   **Rueda de Ajustes (`.tp-prefs-btn svg`):** Gira 60° mientras el panel está abierto y vuelve a su posición al cerrarse, mediante una transición de 420 ms vinculada al estado del panel.
 *   **Control de movimiento reducido:** La función `replayMotionClass()` consulta activamente `matchMedia('(prefers-reduced-motion: reduce)')`. Si el usuario tiene activada la reducción de movimiento en su sistema operativo, las clases de animación no se aplican y la transición visual se realiza de forma estática e instantánea.
 
 ### 3.4. Tipografía y responsive mobile-first
@@ -96,7 +96,7 @@ Los valores publicados corresponden a los colores predeterminados. Los temas con
 *   **Atajo Rápido Global:**
     *   La tecla `T` (en mayúscula o minúscula) conmuta el modo claro/oscuro desde cualquier parte del documento, con guarda activa para no interferir si el usuario está escribiendo en un campo de texto o editable.
 *   **Indicadores `:focus-visible`:**
-    *   Los controles generales usan `outline: 2px solid var(--accent); outline-offset: 3px`. En las decisiones `.ydc`, el anillo de la opción usa `outline: 2px solid var(--focus-ring); outline-offset: 3px`; el foco del radio se representa en esa opción para evitar contornos duplicados.
+    *   La regla base de botones, enlaces y controles de actividades usa `outline: 2px solid var(--accent); outline-offset: 3px`. En las decisiones `.ydc`, el anillo de la opción usa `outline: 2px solid var(--focus-ring); outline-offset: 3px`; el foco del radio se representa en esa opción para evitar contornos duplicados.
 
 ---
 
@@ -223,6 +223,6 @@ El generador de marca ajusta el texto y los bordes a ratios mínimos de contrast
 
 - Se incorporaron tooltips contextuales a las cinco decisiones. Cada botón tiene `aria-describedby`, estado `aria-expanded` y un destino `role="tooltip"`; se abren con foco o puntero y se cierran con `Escape` o al perder foco.
 - Las ayudas desplegables de cada decisión ahora explican la tarea concreta. Los textos se localizan en español e inglés, tanto desde el HTML autónomo como desde el diccionario LMS.
-- `i18n.json` contiene 173 claves hoja por idioma tras añadir el cierre traducible de Ajustes. El histórico de este documento y `cambios.md` tenía recuentos anteriores de 146 y 171.
+- `i18n.json` contiene 173 claves hoja por idioma tras añadir el cierre traducible de Ajustes; los recuentos de registros anteriores quedaron superados por ampliaciones posteriores.
 - La etiqueta de carga del conector LMS permanece desactivada hasta disponer de una ruta pública válida. La integración con un host LMS y las pruebas con lectores de pantalla requieren ese entorno y no se consideran verificadas aquí.
 - Las comprobaciones ejecutadas validan sintaxis de scripts, paridad de claves y estructura/asociación/localización de tooltips. No se pudo completar la interacción visual en navegador desde esta ejecución: el panel no permite abrir recursos locales mediante la política de URL. Tampoco se probó un LMS real ni lector de pantalla, por lo que no se afirma certificación WCAG completa.

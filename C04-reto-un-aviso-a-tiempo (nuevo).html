@@ -83,6 +83,7 @@
 .ydc-scene.has-person>*{grid-column:1/-1}
 .ydc-scene.has-person>.ydc-intro{grid-column:1;grid-row:2;align-self:center}
 .ydc-scene>.ydc-person{grid-column:2;grid-row:2;width:58px;align-self:end}
+/* En móvil se conservan las figuras compactas; las escenas suplementarias son de escritorio. */
 .ydc-scene--supplemental{display:none}
 .ydc-scene--supplemental>.ydc-illustration{width:clamp(92px,12vw,128px);height:88px;justify-self:end;align-self:center}
 .ydc-where,.ydc-row dt,.ypad-t,.ytk-cap,.ytk-k,.ydc-keep span,.ydc-by{margin:0;font:700 .6875rem/1.35 var(--font-ui);
@@ -111,6 +112,7 @@
 .ydc-opt:has(input:checked){border-color:var(--accent);background:var(--bg-mint);font-weight:600}
 .ydc-item:focus-within .ydc-opt{outline:2px solid var(--focus-ring);outline-offset:3px;border-color:var(--focus-ring)}
 .ydc-opt input{width:20px;height:20px;margin:0;accent-color:var(--accent);cursor:pointer}
+/* El anillo pertenece a la opción; evita duplicarlo en el radio nativo. */
 .ydc-opt input:focus-visible{outline:none}
 .ydc-out{display:grid;gap:14px;margin:0 0 8px;padding:16px 16px 18px;border-radius:4px 14px 14px 14px;
   background:var(--bg);border:1px solid var(--line);border-left:4px solid var(--line-strong);scroll-margin-top:128px}
@@ -254,6 +256,7 @@
 @keyframes ypr-ring{0%{opacity:0;transform:scale(.6)}24%{opacity:.85}100%{opacity:0;transform:scale(1.65)}}
 @keyframes ypr-check{to{stroke-dashoffset:0}}
 @keyframes ypr-spark{0%{opacity:0;transform:translate(0,0) scale(.35)}18%{opacity:1}100%{opacity:0;transform:translate(var(--spark-x),var(--spark-y)) scale(1)}}
+/* Con movimiento reducido, el check estático conserva el significado de éxito. */
 @media(prefers-reduced-motion:reduce){
   .ypr-controls button,.ypr-controls.is-ready .ypr-ready-mark,.ytk-pick.is-set{transition:none;animation:none}
   .ypr-controls.is-celebrating .ypr-celebration{animation:none;opacity:1;visibility:visible}
@@ -2262,6 +2265,7 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
   /* a class opens light and on white paper, whatever the system says: dark is
      the learner's choice (the toggle), not the device's */
   const PREFS_DEFAULT={theme:"light",font:"sans",size:"m",paper:root.getAttribute("data-paper")||"white",ink:"brand"};
+  // Migra brand/serif/system a sans; solo legible sigue como familia separada.
   function normalizeFont(value){return value==="legible"?"legible":"sans"}
   function readPrefs(){
     let p={};try{p=JSON.parse(store.get(PREFS_KEY)||"{}")||{}}catch(e){}
@@ -3311,6 +3315,7 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
   });
   document.addEventListener('click',function(e){
     if(e.target.closest('[data-ypr-complete]')){
+      // Inicia el adorno sin esperar; complete() publica el cierre al LMS en esta misma acción.
       if(state.progress.completed===state.progress.total)celebrateCompletion();
       complete();
     }

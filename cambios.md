@@ -49,6 +49,7 @@ Antes de aplicar las correcciones, se auditaron las versiones previas en navegad
     *   El botón selector de fuentes (`.tp-dd-btn`) tiene una altura mínima de **44 px** con padding táctil generoso.
     *   El conmutador de modo en Ajustes (`.tp-mode-toggle`) se diseñó como un control táctil tipo píldora de **138 × 44 px**.
 *   **Optimización de Contrastes (WCAG 2.1 AA SC 1.4.11):**
+    *   Los ratios siguientes pertenecen a la iteración inicial; la revisión posterior de las paletas dejó vigentes los tokens y mediciones recogidos en la sección 8 y en `README.md` §4.1.
     *   Modo Claro (:root / Día y Sol): `--line-strong` actualizado de `#BDC6BF` a `#748A84`, logrando un contraste de **3.68:1** frente a blanco (`#FFFFFF`) y **3.42:1** frente a superficie suave (`#F5F7F7`).
     *   Modo Oscuro Noche (`brand`): `--line-strong` actualizado de `#426D6D` a `#7EA6A3`, logrando un contraste de **5.06:1** frente a fondo (`#00343C`) y **4.39:1** frente a superficie suave (`#0D3E46`).
     *   Modo Oscuro Estrella (`alt`): `--line-strong` actualizado de `#427879` a `#85ACA9`, logrando un contraste de **4.25:1** frente a fondo (`#004650`) y **3.72:1** frente a superficie suave (`#0D4F59`).
@@ -65,8 +66,8 @@ Antes de aplicar las correcciones, se auditaron las versiones previas en navegad
     *   Al cambiar de tema desde el botón rápido de la cabecera o desde el botón interno de Ajustes (o mediante el atajo de teclado `T`), ambos controles actualizan inmediatamente su estado visual, sus atributos `aria-pressed`, sus etiquetas accesibles `aria-label` y la clase `.toggled`.
     *   La preferencia se guarda en `localStorage` y se sincroniza automáticamente con el iframe del deck didáctico.
 *   **Animaciones Suaves y Reducción de Movimiento:**
-    *   La rueda de Ajustes (`.tp-prefs-btn svg`) rota +55° al desplegar el panel (`.turn-open`) y -55° al replegarse (`.turn-close`).
-    *   El glifo Sol/Luna rota 360° con una transición cúbica suave (`cubic-bezier(.22,.8,.24,1)`).
+    *   La rueda de Ajustes (`.tp-prefs-btn svg`) gira 60° mientras el panel tiene el atributo `[open]` y vuelve a su posición con una transición de 420 ms.
+    *   El glifo Sol/Luna usa una entrada y salida de 500 ms con escala y rotación de hasta 90°; se anula con `prefers-reduced-motion`.
     *   Se implementó la función `replayMotionClass()` con escucha estricta de `matchMedia('(prefers-reduced-motion: reduce)')`. Si la preferencia de reducción de movimiento está activa, las clases de animación se anulan y el cambio de estado es instantáneo.
 
 ### 3.3. Accesibilidad Semántica y Operación por Teclado
@@ -86,15 +87,15 @@ Antes de aplicar las correcciones, se auditaron las versiones previas en navegad
 *   **Ayudas Desplegables Contextuales:**
     *   En cada grupo de decisiones `.ydc-item` se incorporó un elemento nativo accesible `<details class="ydc-help">` con `<summary>` estilizado como píldora accesible por teclado y puntero táctil, explicando la dinámica de consecuencias sin depender de estados hover.
 *   **Micro-animación en Ilustraciones:**
-    *   Al seleccionar una respuesta en los formularios de decisión, la ilustración vectorial SVG de la escena (`.yart-says > .yart`) ejecuta una micro-animación elástica (`turn-pop`) que se limpia tras 600 ms, respetando `prefers-reduced-motion`.
+    *   Al entrar con foco en una decisión, la figura `.ydc-person` realiza un movimiento breve; las selecciones táctiles o programáticas sin foco conservan ese feedback. Se omite con `prefers-reduced-motion: reduce`.
 *   **Resumen Acumulativo «Te llevas»:**
-    *   Las 18 decisiones del reto mantienen sincronización bilingüe inmediata. Al cambiar de idioma, los textos de consecuencias ya seleccionados se actualizan en el panel de cierre sin alterar el progreso.
+    *   Las 18 opciones repartidas entre las decisiones mantienen sincronización bilingüe inmediata. Al cambiar de idioma, los textos de consecuencias ya seleccionados se actualizan en el panel de cierre sin alterar el progreso.
 
 ### 3.5. Feedback progresivo, escenas y finalización
 *   **Escenas SVG por decisión:** Se añadieron ilustraciones decorativas autocontenidas a «Aceptar», «Obstáculo» y «Valoración», adaptando los acentos de `undraw_agreement_ftet.svg`, `undraw_casual-chat_4byz.svg` y `undraw_workspace_s6wf.svg` a las variables `--yart-*`. Las tres escenas suplementarias aparecen desde 720 px; las figuras compactas originales siguen disponibles en móvil.
 *   **Foco y progreso actual:** Las opciones enfocadas muestran un anillo exterior semántico basado en `--focus-ring`, unificado con el foco del radio para evitar contornos duplicados. Los puntos distinguen la actividad enfocada de las respondidas y el estado pasa por «Pendiente», «En curso» y «Completada». El texto nuevo está disponible en español e inglés en `i18n.json`.
 *   **Consecuencias y resumen:** La consecuencia seleccionada entra con una transición breve. Las nuevas respuestas también aparecen suavemente en «Te llevas»; ambos movimientos respetan `prefers-reduced-motion`.
-*   **Celebración de cierre:** Al completarse todas las decisiones y pulsar «Terminar esta clase», un SVG inline dibuja un check rodeado de una onda y partículas geométricas durante 1,7 s. El aviso y el mensaje de finalización LMS se envían de inmediato; la animación no bloquea la interacción y se reduce a un check estático cuando se solicita menos movimiento.
+*   **Celebración de cierre:** Al completar los hitos requeridos y pulsar «Terminar esta clase», un SVG inline dibuja un check rodeado de una onda y partículas geométricas durante 1,7 s. El aviso y el mensaje de finalización LMS se envían de inmediato; la animación no bloquea la interacción y se reduce a un check estático cuando se solicita menos movimiento.
 *   **Preparación del cierre:** El botón conserva su disponibilidad para que pueda explicar qué falta, pero muestra un estado visual «listo» al completar los tres hitos que el contrato LMS exige para cerrar la clase. Se añadieron feedback táctil discreto y una marca decorativa; el resplandor de listo cede al anillo de foco de teclado, y las partículas usan color y retraso explícitos; no se introdujeron dependencias.
 
 ---
@@ -102,7 +103,7 @@ Antes de aplicar las correcciones, se auditaron las versiones previas en navegad
 ## 4. Nuevos Módulos y Recursos Incorporados
 
 ### 4.1. Diccionario Bilingüe (`i18n.json`)
-*   Se extrajeron y estructuraron 146 claves hoja para español (`es`) e inglés (`en`).
+*   El diccionario contiene actualmente 173 claves hoja para español (`es`) y 173 para inglés (`en`), con paridad entre ambos idiomas.
 *   Familias de claves cubiertas:
     *   `settings.*`: títulos, etiquetas de herramientas, nombres de paletas y etiquetas de tamaño tipográfico (`size92` a `size200`).
     *   `theme.*`: etiquetas del conmutador rápido y del botón de modo.
@@ -125,6 +126,8 @@ Antes de aplicar las correcciones, se auditaron las versiones previas en navegad
 ---
 
 ## 5. Auditoría de Calidad y Resultados de Verificación QA
+
+Los resultados de esta sección registran fases anteriores de implementación. Las cifras y pruebas de una fase no representan por sí solas una verificación de la entrega actual; las revisiones documentales posteriores se anotan al final del archivo.
 
 ### 5.1. Pruebas de Layout en Playwright (11 Viewports)
 Ejecutadas con Google Chrome Headless en anchos: **320, 360, 375, 390, 520, 640, 768, 860, 861, 1024 y 1280 px**.
@@ -153,7 +156,7 @@ Cálculos de luminancia relativa algorítmica:
 
 ### 5.4. Análisis Sintáctico y Cobertura de Claves
 *   [x] `vm.Script` en Node.js sobre los dos scripts inline y `lms-i18n.js`: **0 errores de sintaxis**.
-*   [x] Barrido estático de cadenas traducibles: 146 claves coincidentes al 100% entre `es` y `en` en `i18n.json`; **0 claves faltantes**.
+*   [x] Barrido estático histórico de cadenas traducibles: se registró paridad entre `es` y `en` sin claves faltantes; el recuento vigente se confirma en la sección 9.
 *   [x] La línea de inclusión de `lms-i18n.js` permanece comentada de forma segura en el `<head>`:
     ```html
     <!-- <script src="./lms-i18n.js" data-i18n-url="./i18n.json" defer></script> -->
@@ -164,7 +167,7 @@ Cálculos de luminancia relativa algorítmica:
 *   [x] **Animación reactiva de ilustraciones (`.ydc-person`):** Conectada la clase `.is-animating` en el listener `change` de cada opción del reto, reiniciando el reflow para reproducir el cabeceo/saludo visual en cada selección (respetando `prefers-reduced-motion`).
 *   [x] **Anuncios accesibles en huecos (`fill-in-the-gaps`):** La función `paint()` del selector de huecos actualiza dinámicamente el `aria-label` del botón combobox para anunciar tanto la posición como el valor actualmente seleccionado (ej. `"Hueco 1 de 3: aviso"`).
 *   [x] **Feedback visual enriquecido de progreso:**
-    *   Cabecera de paso en cada tarjeta de decisión (`"Decisión X de 5"` con distintivo de estado `"Pendiente"` / `"Completada"`).
+    *   Cabecera de paso en cada tarjeta de decisión (`"Decisión X de 5"` con los estados `"Pendiente"`, `"En curso"` y `"Completada"`).
     *   Tira global de puntos de progreso interactivos con live region para lectores de pantalla.
     *   Icono animado de confirmación (check badge) en la opción seleccionada.
     *   Indicador de sección completada en el índice lateral (`.llr-toc-link.is-done`).
@@ -189,7 +192,7 @@ Cálculos de luminancia relativa algorítmica:
 
 > Los hashes de esta tabla corresponden a una instantánea anterior y no describen el estado actual tras las revisiones posteriores registradas al final del documento.
 
-Hashes calculados sobre los archivos finales entregados en el paquete:
+Hashes de la instantánea registrada antes de las revisiones posteriores:
 
 | Archivo | Hash SHA-256 | Estado |
 | :--- | :--- | :--- |
@@ -208,7 +211,7 @@ Hashes calculados sobre los archivos finales entregados en el paquete:
 - Se reemplazaron las ayudas genéricas repetidas por instrucciones específicas para cada una de las cinco decisiones (`plan`, `aceptar`, `obstaculo`, `valoracion` y `antes`).
 - Se añadieron tooltips contextuales con botones de 44 × 44 px, `aria-describedby`, `aria-expanded` y destinos con `role="tooltip"`. El comportamiento abre con foco o puntero, cierra con `Escape` y al perder foco o salir el puntero.
 - Los rótulos y contenidos de ayuda están disponibles en español e inglés en `i18n.json`, con respaldo bilingüe gestionado por la plantilla.
-- El diccionario contiene ahora 173 claves hoja por idioma; el recuento de 146 registrado en entradas previas era anterior a las ampliaciones.
+- El diccionario contiene ahora 173 claves hoja por idioma; los recuentos consignados en entradas previas eran anteriores a las ampliaciones.
 - La documentación limita expresamente los resultados Playwright anteriores a su alcance histórico. Esta actualización no certifica compatibilidad con lectores de pantalla ni integración con un LMS real; la etiqueta opt-in del cargador continúa comentada hasta tener URL pública y configuración de origen.
 - Verificación ejecutada en esa intervención: los dos scripts inline pasan `vm.Script`; se comprobó la paridad de `i18n.json`; la inspección estática confirma cinco decisiones, cinco ayudas contextuales, destinos `role="tooltip"`, asociaciones `aria-describedby`, cierre Escape y ganchos de localización. No se completó interacción visual en navegador ni verificación en LMS/lector de pantalla: el panel disponible rechazó la apertura del recurso local por su política de URL. No se afirma certificación WCAG completa.
 
