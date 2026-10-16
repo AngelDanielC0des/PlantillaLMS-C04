@@ -242,3 +242,8 @@ Hashes de la instantánea registrada antes de las revisiones posteriores:
 - La celebración reserva su espacio dentro de los controles de cierre mientras está activa, evitando cubrir el texto anterior y el botón. No se cambió el instante del evento LMS ni la presentación estática con movimiento reducido.
 - Se añadió `navigation.sectionLinks` a `i18n.json`; el recuento actual es de 174 claves hoja en `es` y 174 en `en`, con paridad.
 - Playwright/Chromium desde el archivo local verificó el foco de la barra en Día y Noche a 1280 px, el índice a 390 y 320 px, el ciclo de foco/Escape/fondo inerte y la intersección de la celebración con el texto anterior. La validación con lector de pantalla y LMS real sigue pendiente.
+
+## 11. Foco de navegación y cierre responsive de Ajustes (16 de octubre de 2026)
+
+- Al elegir una sección en el índice, el foco pasa a su encabezado después de cerrar el diálogo móvil; Escape sin elegir mantiene el retorno al disparador.
+- Si Ajustes cruza el breakpoint de 860 px mientras está abierto, se cierra, retira `inert` y devuelve el foco a su botón. Los cambios de ancho que no cruzan el breakpoint no cierran el panel.

@@ -2372,11 +2372,18 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
     const btn=box.querySelector(".tp-prefs-btn"),panel=box.querySelector(".tp-prefs-panel");
     const closeBtn=box.querySelector(".tp-prefs-close"),layout=document.querySelector(".llr-layout");
     const navBtn=document.getElementById("llr-nav-btn"),themeBtn=document.querySelector(".tp-tools [data-theme-toggle]"),langSwitch=document.querySelector(".tp-lang");
+    let prefsMobile=matchMedia("(max-width:860px)").matches;
     const open=o=>{const mobile=matchMedia("(max-width:860px)").matches;box.toggleAttribute("open",o);btn.setAttribute("aria-expanded",o?"true":"false");
-      panel.setAttribute("role",mobile&&o?"dialog":"group");panel.setAttribute("aria-modal",mobile&&o?"true":"false");
+      panel.setAttribute("role",mobile&&o?"dialog":"group");if(mobile&&o)panel.setAttribute("aria-modal","true");else panel.removeAttribute("aria-modal");
       if(layout)layout.inert=!!(mobile&&o);if(navBtn)navBtn.inert=!!(mobile&&o);if(langSwitch){langSwitch.inert=!!(mobile&&o);langSwitch.style.visibility=mobile&&o?"hidden":"";}if(themeBtn&&themeBtn!==box.querySelector(".tp-mode-toggle"))themeBtn.inert=!!(mobile&&o);
       if(o){const f=mobile?closeBtn:(box.querySelector(".tp-seg button.active")||box.querySelector(".tp-seg button"));if(f)f.focus();}
       else if(box.contains(document.activeElement))btn.focus();};
+    window.addEventListener("resize",()=>{
+      const mobile=matchMedia("(max-width:860px)").matches;
+      if(mobile===prefsMobile)return;
+      prefsMobile=mobile;
+      if(box.hasAttribute("open")){open(false);btn.focus();}
+    });
     btn.addEventListener("click",()=>open(!box.hasAttribute("open")));
     if(closeBtn)closeBtn.addEventListener("click",()=>open(false));
     document.addEventListener("click",e=>{if(!box.contains(e.target))open(false)});
@@ -2555,8 +2562,11 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
     }
     toc.forEach(btn=>btn.addEventListener("click",()=>{
       const t=document.getElementById(btn.dataset.target);if(!t)return;
-      goTo(t);
+      const heading=t.querySelector("h1,h2,h3,h4,h5,h6")||t;
+      if(!heading.hasAttribute("tabindex"))heading.setAttribute("tabindex","-1");
+      goTo(heading);
       if(matchMedia("(max-width:860px)").matches)setDrawerOpen(false);
+      heading.focus({preventScroll:true});
     }));
     /* A link to an anchor in the class itself, like a reference citation,
        moves nothing on its own: what scrolls is the reading pane and not the
