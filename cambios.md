@@ -90,6 +90,13 @@ Antes de aplicar las correcciones, se auditaron las versiones previas en navegad
 *   **Resumen Acumulativo «Te llevas»:**
     *   Las 18 decisiones del reto mantienen sincronización bilingüe inmediata. Al cambiar de idioma, los textos de consecuencias ya seleccionados se actualizan en el panel de cierre sin alterar el progreso.
 
+### 3.5. Feedback progresivo, escenas y finalización
+*   **Escenas SVG por decisión:** Se añadieron ilustraciones decorativas autocontenidas a «Aceptar», «Obstáculo» y «Valoración», adaptando los acentos de `undraw_agreement_ftet.svg`, `undraw_casual-chat_4byz.svg` y `undraw_workspace_s6wf.svg` a las variables `--yart-*`. Las tres escenas suplementarias aparecen desde 720 px; las figuras compactas originales siguen disponibles en móvil.
+*   **Foco y progreso actual:** Las opciones enfocadas muestran un anillo exterior semántico basado en `--focus-ring`. Los puntos distinguen la actividad enfocada de las respondidas y el estado pasa por «Pendiente», «En curso» y «Completada». El texto nuevo está disponible en español e inglés en `i18n.json`.
+*   **Consecuencias y resumen:** La consecuencia seleccionada entra con una transición breve. Las nuevas respuestas también aparecen suavemente en «Te llevas»; ambos movimientos respetan `prefers-reduced-motion`.
+*   **Celebración de cierre:** Al completarse todas las decisiones y pulsar «Terminar esta clase», un SVG inline dibuja un check rodeado de una onda y partículas geométricas durante 1,7 s. El aviso y el mensaje de finalización LMS se envían de inmediato; la animación no bloquea la interacción y se reduce a un check estático cuando se solicita menos movimiento.
+*   **Preparación del cierre:** El botón conserva su disponibilidad para que pueda explicar qué falta, pero muestra un estado visual «listo» al completar los tres hitos que el contrato LMS exige para cerrar la clase. Se añadieron feedback táctil discreto y una marca decorativa; no se introdujeron dependencias.
+
 ---
 
 ## 4. Nuevos Módulos y Recursos Incorporados
