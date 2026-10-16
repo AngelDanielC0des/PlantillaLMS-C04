@@ -666,6 +666,13 @@ html[data-theme="dark"] .tp-seg[data-only-light],html:not([data-theme="dark"]) .
 .llr-hero p{max-width:48ch;margin:0;font-size:1.24rem;line-height:1.5;color:var(--fg-soft);
   text-align:justify;hyphens:auto;-webkit-hyphens:auto;text-wrap:pretty}
 .llr-section{scroll-margin-top:26px;padding:16px 0 56px}
+.llr-section.is-current{box-shadow:inset 3px 0 0 var(--accent)}
+.llr-next-section{position:relative;z-index:1;display:grid;place-items:center;width:44px;height:44px;
+  min-width:44px;margin:-44px auto 0;padding:0;border:1px solid var(--line);border-radius:50%;
+  color:var(--accent);background:var(--bg);cursor:pointer;transition:background var(--fast),border-color var(--fast)}
+.llr-next-section:hover,.llr-next-section:focus-visible{background:var(--bg-soft);border-color:var(--accent)}
+.llr-next-section svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
 .llr-section-no{margin-bottom:12px;font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;
   font-weight:600;color:var(--muted)}
 .llr-section h3{margin:0 0 18px;font-size:clamp(1.6rem,3.2vw,2.3rem);line-height:1.12;
@@ -2038,6 +2045,9 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
       <figcaption><span data-i18n="course.content.text019">Cada opción muestra lo que ocurre después.</span></figcaption>
     </figure>
           </section>
+          <button type="button" class="llr-next-section" data-next-section="s-2-si-no-has" aria-controls="s-2-si-no-has" aria-label="Ir a la sección siguiente" data-i18n-aria-label="navigation.nextSection">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v15m-6-6 6 6 6-6"/></svg>
+          </button>
           <section class="llr-section stack" id="s-2-si-no-has" data-section>
             <h2><span class="hn"><span data-i18n="course.content.text025">2.</span></span> <span data-i18n="legacy.content.025" data-es="Si no has podido" data-en="Si no has podido">Si no has podido</span></h2>
     <p class="measure just"><span data-i18n="legacy.content.026" data-es="Ensaya un aviso con un compañero: qué, destino y plazo posible." data-en="Ensaya un aviso con un compañero: qué, destino y plazo posible.">Ensaya un aviso con un compañero: qué, destino y plazo posible.</span></p>
@@ -2061,6 +2071,9 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
     </figure>
     <p class="measure just"><span data-i18n="legacy.content.027" data-es="No hace falta inventar una ocasión ni exponerte a una situación incómoda para terminar. Puedes preparar la acción y elegir otro momento." data-en="No hace falta inventar una ocasión ni exponerte a una situación incómoda para terminar. Puedes preparar la acción y elegir otro momento.">No hace falta inventar una ocasión ni exponerte a una situación incómoda para terminar. Puedes preparar la acción y elegir otro momento.</span></p>
           </section>
+          <button type="button" class="llr-next-section" data-next-section="s-3-como-te-ha" aria-controls="s-3-como-te-ha" aria-label="Ir a la sección siguiente" data-i18n-aria-label="navigation.nextSection">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v15m-6-6 6 6 6-6"/></svg>
+          </button>
           <section class="llr-section stack" id="s-3-como-te-ha" data-section>
             <h2><span class="hn"><span data-i18n="course.content.text032">3.</span></span> <span data-i18n="legacy.content.028" data-es="Cómo te ha ido" data-en="Cómo te ha ido">Cómo te ha ido</span></h2>
     <p class="measure just"><span data-i18n="legacy.content.029" data-es="La respuesta es voluntaria y queda en esta página. El informe de empresa no recibe cómo te sientes." data-en="La respuesta es voluntaria y queda en esta página. El informe de empresa no recibe cómo te sientes.">La respuesta es voluntaria y queda en esta página. El informe de empresa no recibe cómo te sientes.</span></p>
@@ -2085,6 +2098,9 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
       <figcaption><span data-i18n="course.content.text019">Cada opción muestra lo que ocurre después.</span></figcaption>
     </figure>
           </section>
+          <button type="button" class="llr-next-section" data-next-section="s-4-antes-de-irte" aria-controls="s-4-antes-de-irte" aria-label="Ir a la sección siguiente" data-i18n-aria-label="navigation.nextSection">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v15m-6-6 6 6 6-6"/></svg>
+          </button>
           <section class="llr-section stack" id="s-4-antes-de-irte" data-section>
             <h2><span class="hn"><span data-i18n="course.content.text049">4.</span></span> <span data-i18n="legacy.content.030" data-es="Antes de irte" data-en="Antes de irte">Antes de irte</span></h2>
     <figure class="art-fig wide-out" data-art="antes">
@@ -2104,6 +2120,9 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
     </figure>
     <p class="measure just"><span data-i18n="legacy.content.031" data-es="Aceptar expresa una intención. Cuando lo hayas practicado, podrás declararlo en Avances. Si hoy no puedes, no tienes que justificarte ni marcarlo como hecho." data-en="Aceptar expresa una intención. Cuando lo hayas practicado, podrás declararlo en Avances. Si hoy no puedes, no tienes que justificarte ni marcarlo como hecho.">Aceptar expresa una intención. Cuando lo hayas practicado, podrás declararlo en Avances. Si hoy no puedes, no tienes que justificarte ni marcarlo como hecho.</span></p>
           </section>
+          <button type="button" class="llr-next-section" data-next-section="s-5-te-llevas" aria-controls="s-5-te-llevas" aria-label="Ir a la sección siguiente" data-i18n-aria-label="navigation.nextSection">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v15m-6-6 6 6 6-6"/></svg>
+          </button>
           <section class="llr-section stack" id="s-5-te-llevas" data-section>
             <h2><span class="hn"><span data-i18n="course.content.text058">5.</span></span> <span data-i18n="legacy.content.032" data-es="Te llevas" data-en="Te llevas">Te llevas</span></h2>
     <figure class="art-fig wide-out" data-art="llevas">
@@ -2579,21 +2598,31 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
        without animation than not to arrive. */
     function goTo(t){
       const mobile=matchMedia("(max-width:860px)").matches;
+      const reducedMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
       const dest=Math.max(0,topOf(t)-(mobile?14:20));
       const before=pane.scrollTop;
-      pane.scrollTo({top:dest,behavior:"smooth"});
+      pane.scrollTo({top:dest,behavior:reducedMotion?"auto":"smooth"});
+      if(reducedMotion)return;
       setTimeout(()=>{
         if(Math.abs(pane.scrollTop-before)<2&&Math.abs(dest-before)>2)
           pane.scrollTo({top:dest,behavior:"auto"});
       },220);
     }
-    toc.forEach(btn=>btn.addEventListener("click",()=>{
-      const t=document.getElementById(btn.dataset.target);if(!t)return;
-      const heading=t.querySelector("h1,h2,h3,h4,h5,h6")||t;
+    function focusSection(target,closeDrawer){
+      if(!target)return;
+      const heading=target.matches("h1,h2,h3,h4,h5,h6")?target:target.querySelector("h1,h2,h3,h4,h5,h6")||target;
       if(!heading.hasAttribute("tabindex"))heading.setAttribute("tabindex","-1");
       goTo(heading);
-      if(matchMedia("(max-width:860px)").matches)setDrawerOpen(false);
+      if(closeDrawer&&matchMedia("(max-width:860px)").matches)setDrawerOpen(false);
       heading.focus({preventScroll:true});
+    }
+    toc.forEach(btn=>btn.addEventListener("click",()=>{
+      const t=document.getElementById(btn.dataset.target);if(!t)return;
+      focusSection(t,true);
+    }));
+    document.querySelectorAll(".llr-next-section[data-next-section]").forEach(btn=>btn.addEventListener("click",()=>{
+      const target=document.getElementById(btn.dataset.nextSection);
+      if(target&&target.matches(".llr-section[data-section]"))focusSection(target,false);
     }));
     /* A link to an anchor in the class itself, like a reference citation,
        moves nothing on its own: what scrolls is the reading pane and not the
@@ -2618,6 +2647,14 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
       let current=targets[0]&&targets[0].id;
       let currentIndex=0;
       targets.forEach((t,i)=>{if(topOf(t)<=trigger){current=t.id;currentIndex=i;}});
+      const centerY=pane.getBoundingClientRect().top+pane.clientHeight/2;
+      let nearest=null,nearestDistance=Infinity;
+      targets.forEach(t=>{
+        const rect=t.getBoundingClientRect();
+        const distance=centerY<rect.top?rect.top-centerY:centerY>rect.bottom?centerY-rect.bottom:0;
+        if(distance<nearestDistance){nearest=t;nearestDistance=distance;}
+      });
+      targets.forEach(t=>t.classList.toggle("is-current",t===nearest));
       const activeBtn=toc.find(b=>b.dataset.target===current);
       const parentId=activeBtn?activeBtn.dataset.parent:null;
       const openId=activeBtn?(activeBtn.dataset.parent||activeBtn.dataset.target):null;

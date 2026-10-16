@@ -103,7 +103,7 @@ Antes de aplicar las correcciones, se auditaron las versiones previas en navegad
 ## 4. Nuevos Módulos y Recursos Incorporados
 
 ### 4.1. Diccionario Bilingüe (`i18n.json`)
-*   El diccionario contiene actualmente 174 claves hoja para español (`es`) y 174 para inglés (`en`), con paridad entre ambos idiomas.
+*   El diccionario contiene actualmente 175 claves hoja para español (`es`) y 175 para inglés (`en`), con paridad entre ambos idiomas.
 *   Familias de claves cubiertas:
     *   `settings.*`: títulos, etiquetas de herramientas, nombres de paletas y etiquetas de tamaño tipográfico (`size92` a `size200`).
     *   `theme.*`: etiquetas del conmutador rápido y del botón de modo.
@@ -240,7 +240,7 @@ Hashes de la instantánea registrada antes de las revisiones posteriores:
 - Se restableció `position: fixed` en móvil después de la regla posterior `.llr-toc { position: relative }`, que había encogido el panel al alto del layout; a 390 y 320 px las cinco entradas caben sin scroll interno.
 - Al abrir el diálogo, el foco inicial va al cierre, Tab queda contenido, Escape cierra y devuelve el foco al disparador. El resto del documento queda `inert` mientras el diálogo está abierto, excepto el telón que permite cerrarlo.
 - La celebración reserva su espacio dentro de los controles de cierre mientras está activa, evitando cubrir el texto anterior y el botón. No se cambió el instante del evento LMS ni la presentación estática con movimiento reducido.
-- Se añadió `navigation.sectionLinks` a `i18n.json`; el recuento actual es de 174 claves hoja en `es` y 174 en `en`, con paridad.
+- Se añadió `navigation.sectionLinks` a `i18n.json`; el recuento en esa revisión era de 174 claves hoja en `es` y 174 en `en`, con paridad.
 - Playwright/Chromium desde el archivo local verificó el foco de la barra en Día y Noche a 1280 px, el índice a 390 y 320 px, el ciclo de foco/Escape/fondo inerte y la intersección de la celebración con el texto anterior. La validación con lector de pantalla y LMS real sigue pendiente.
 
 ## 11. Foco de navegación y cierre responsive de Ajustes (16 de octubre de 2026)
@@ -252,3 +252,9 @@ Hashes de la instantánea registrada antes de las revisiones posteriores:
 
 - El rail colapsado de 44 px incorpora un asa ocre centrada con chevron. Hover y `:focus-within` mantienen la apertura existente; activar el botón enfoca la sección actual. Usa la clave localizada `navigation.openToc`, sin añadir claves i18n.
 - El asa solo se presenta desde 861 px; el diálogo del índice móvil no cambia.
+
+## 13. Indicador de sección y avance secuencial (16 de octubre de 2026)
+
+- Una franja interior marca la sección principal más próxima al centro del panel de lectura; se calcula dentro del `update()` que ya escucha el scroll y no reutiliza `is-picked`.
+- Se insertaron cuatro botones accesibles entre las cinco secciones principales. Cada uno desplaza y enfoca el encabezado de la siguiente sección mediante el mismo camino que el índice; no hay botón tras «Te llevas».
+- El salto es inmediato con `prefers-reduced-motion: reduce`. Se añadió `navigation.nextSection` en español e inglés; `i18n.json` queda en 175 claves hoja por idioma, con paridad.

@@ -26,7 +26,7 @@ Este paquete contiene la plantilla interactiva para plataformas de aprendizaje v
 | :--- | :--- | :--- |
 | `C04-reto-un-aviso-a-tiempo (nuevo).html` | **Plantilla Maestra** | Documento interactivo para el alumno. Integra los estilos CSS encapsulados, marcado HTML5 semántico, componentes didácticos y controladores de estado cliente. |
 | `C04-reto-un-aviso-a-tiempo(antiguo).html` | **Línea Base Histórica** | Archivo original de partida conservado intacto para trazabilidad, comparaciones de regresión y auditorías de código. |
-| `i18n.json` | **Diccionario Externo** | Repositorio de 174 claves hoja por idioma (`es` y `en`) con todas las cadenas de interfaz, accesibilidad, textos pedagógicos y respuestas. |
+| `i18n.json` | **Diccionario Externo** | Repositorio de 175 claves hoja por idioma (`es` y `en`) con todas las cadenas de interfaz, accesibilidad, textos pedagógicos y respuestas. |
 | `lms-i18n.js` | **Conector LMS** | Script ligero y asíncrono para consumir `i18n.json`, traducir el árbol DOM, actualizar atributos ARIA y responder a eventos `tp:languagechange`. |
 | `cambios.md` | **Registro de Cambios** | Historial técnico de auditoría y transformaciones detalladas respecto al original antiguo. |
 | `README.md` | **Manual Técnico** | Documentación de arquitectura, diseño, contrastes, accesibilidad e instrucciones de despliegue. |
@@ -182,7 +182,7 @@ El registro de cambios conserva resultados de una batería anterior de pruebas a
     *   Verificado en viewport de 320 px con el ajuste tipográfico máximo (`xxl`). La columna de lectura se adapta sin cortar contenido ni expulsar elementos de la pantalla.
 3.  **Auditoría de Sintaxis:**
     *   Scripts inline y archivo `lms-i18n.js` verificados con el motor de análisis sintáctico de Node.js (`vm.Script`): **0 errores de sintaxis**.
-    *   Validación JSON: el recuento comprobado es de 174 claves hoja por idioma (`es` y `en`), incluidas las ayudas y tooltips.
+    *   Validación JSON: el recuento comprobado es de 175 claves hoja por idioma (`es` y `en`), incluidas las ayudas y tooltips.
 4.  **Persistencia:**
     *   Validada la persistencia en `localStorage` de tamaño tipográfico, familia, tema y paleta seleccionada.
 
@@ -223,6 +223,6 @@ El generador de marca ajusta el texto y los bordes a ratios mínimos de contrast
 
 - Se incorporaron tooltips contextuales a las cinco decisiones. Cada botón tiene `aria-describedby`, estado `aria-expanded` y un destino `role="tooltip"`; se abren con foco o puntero y se cierran con `Escape` o al perder foco.
 - Las ayudas desplegables de cada decisión ahora explican la tarea concreta. Los textos se localizan en español e inglés, tanto desde el HTML autónomo como desde el diccionario LMS.
-- `i18n.json` contiene 174 claves hoja por idioma tras añadir el nombre accesible traducible de la navegación interior del índice; los recuentos históricos anteriores corresponden a versiones previas.
+- `i18n.json` contiene 175 claves hoja por idioma tras añadir el nombre accesible traducible de la navegación interior del índice y el botón para avanzar a la sección siguiente; los recuentos históricos anteriores corresponden a versiones previas.
 - La etiqueta de carga del conector LMS permanece desactivada hasta disponer de una ruta pública válida. La integración con un host LMS y las pruebas con lectores de pantalla requieren ese entorno y no se consideran verificadas aquí.
 - En la revisión del 16 de octubre de 2026 se reprodujeron y verificaron con Playwright/Chromium desde disco la barra de foco, el índice móvil y el cierre en viewports representativos. La validación con lector de pantalla y la integración con un LMS real siguen pendientes; no se afirma certificación WCAG completa.

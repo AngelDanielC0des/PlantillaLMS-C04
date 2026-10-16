@@ -197,6 +197,7 @@
     },
     "navigation": {
       "openToc": "Abrir índice de secciones",
+      "nextSection": "Ir a la sección siguiente",
       "closeToc": "Cerrar índice",
       "tocRegion": "Índice de secciones",
       "sectionLinks": "Navegación por secciones",
@@ -401,6 +402,7 @@
     },
     "navigation": {
       "openToc": "Open table of contents",
+      "nextSection": "Go to the next section",
       "closeToc": "Close table of contents",
       "tocRegion": "Table of contents",
       "sectionLinks": "Section navigation",
