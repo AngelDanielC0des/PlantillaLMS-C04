@@ -111,6 +111,7 @@
 .ydc-opt:has(input:checked){border-color:var(--accent);background:var(--bg-mint);font-weight:600}
 .ydc-item:focus-within .ydc-opt{outline:2px solid var(--focus-ring);outline-offset:3px;border-color:var(--focus-ring)}
 .ydc-opt input{width:20px;height:20px;margin:0;accent-color:var(--accent);cursor:pointer}
+.ydc-opt input:focus-visible{outline:none}
 .ydc-out{display:grid;gap:14px;margin:0 0 8px;padding:16px 16px 18px;border-radius:4px 14px 14px 14px;
   background:var(--bg);border:1px solid var(--line);border-left:4px solid var(--line-strong);scroll-margin-top:128px}
 .ydc-ok{border-left-color:var(--green)}
@@ -228,7 +229,7 @@
   transition:transform 160ms var(--ease),box-shadow 160ms var(--ease),background 160ms var(--ease)}
 .ypr-controls button:hover{transform:translateY(-1px);box-shadow:0 4px 14px var(--glow-2)}
 .ypr-controls button:active{transform:translateY(0)}
-.ypr-controls.is-ready button{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--highlight)}
+.ypr-controls.is-ready button:not(:focus-visible){box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--highlight)}
 .ypr-ready-mark{display:none;vertical-align:middle;margin-inline-start:8px}
 .ypr-ready-mark svg{display:block;width:18px;height:18px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .ypr-controls.is-ready .ypr-ready-mark{display:inline-flex;animation:ypr-ready-in 240ms var(--ease) both}
@@ -241,15 +242,14 @@
 .ypr-celebration .ypr-ring{fill:none;stroke:var(--highlight);stroke-width:2.5;opacity:0;transform-box:fill-box;transform-origin:center}
 .ypr-celebration .ypr-check{fill:none;stroke:var(--green);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:42;stroke-dashoffset:42}
 .ypr-celebration .ypr-spark{opacity:0;fill:var(--accent);transform-box:fill-box;transform-origin:center}
-.ypr-celebration .ypr-spark:nth-of-type(4n){fill:var(--orange)}
-.ypr-celebration .ypr-spark:nth-of-type(4n + 1){fill:var(--blue)}
+.ypr-celebration .ypr-spark--orange{fill:var(--orange)}
+.ypr-celebration .ypr-spark--blue{fill:var(--blue)}
 .ypr-controls.is-celebrating .ypr-celebration{visibility:visible;animation:ypr-celebration-in 1700ms ease-out both}
 .ypr-controls.is-celebrating .ypr-ring{animation:ypr-ring 1100ms cubic-bezier(.2,.7,.3,1) both}
 .ypr-controls.is-celebrating .ypr-check{animation:ypr-check 600ms 180ms ease-out both}
 .ypr-controls.is-celebrating .ypr-spark{animation:ypr-spark 1250ms cubic-bezier(.15,.65,.3,1) both}
-.ypr-controls.is-celebrating .ypr-spark:nth-of-type(4n + 1){animation-delay:60ms}
-.ypr-controls.is-celebrating .ypr-spark:nth-of-type(4n + 2){animation-delay:110ms}
-.ypr-controls.is-celebrating .ypr-spark:nth-of-type(4n + 3){animation-delay:160ms}
+.ypr-controls.is-celebrating .ypr-spark--late{animation-delay:80ms}
+.ypr-controls.is-celebrating .ypr-spark--later{animation-delay:150ms}
 @keyframes ypr-celebration-in{0%,100%{opacity:0}12%,74%{opacity:1}}
 @keyframes ypr-ring{0%{opacity:0;transform:scale(.6)}24%{opacity:.85}100%{opacity:0;transform:scale(1.65)}}
 @keyframes ypr-check{to{stroke-dashoffset:0}}
@@ -2102,7 +2102,7 @@ html:has(.llr-reader.gal),body:has(.llr-reader.gal){overflow:hidden}
         </div><div class="yart-seal"><svg class="yart yart-sello-esencial" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" fill="none"><path d="M104 234 L87 311 L152 284 L179 311 L216 232Z" fill="var(--yart-blue)"/><circle cx="160" cy="145" r="124" fill="var(--yart-cream)" stroke="var(--yart-blue)" stroke-width="9"/><circle cx="160" cy="145" r="104" fill="none" stroke="var(--yart-blue)" stroke-width="2"/><path d="M160 77 L181 127 L236 131 L193 167 L206 220 L160 191 L114 220 L127 167 L84 131 L139 127Z" fill="var(--yart-blue)"/></svg><p><span class="yart-seal-level"><span data-i18n="course.content.text064">Sello · Esencial</span></span><span class="yart-seal-name"><span data-i18n="course.content.text065">Oído</span></span></p></div><p><span data-i18n="course.content.text066">El sello corresponde al reto hecho en tu turno. Aceptarlo es el primer paso.</span></p>
       </div>
       <figcaption><span data-i18n="course.content.text067">Una frase y una acción para tu próximo turno.</span></figcaption>
-    </figure><nav class="ypr-controls" aria-label="Finalizar la clase" data-i18n-aria-label="completion.nav"><span class="ypr-celebration" aria-hidden="true"><svg viewBox="0 0 160 96" focusable="false" xmlns="http://www.w3.org/2000/svg"><circle class="ypr-ring" cx="80" cy="48" r="19"/><path class="ypr-check" d="M68 49l8 8 17-19"/><circle class="ypr-spark" cx="80" cy="48" r="3" style="--spark-x:-47px;--spark-y:-24px"/><rect class="ypr-spark" x="77" y="45" width="6" height="6" rx="1" style="--spark-x:43px;--spark-y:-27px"/><path class="ypr-spark" d="M80 43l5 5-5 5-5-5z" style="--spark-x:-34px;--spark-y:27px"/><circle class="ypr-spark" cx="80" cy="48" r="2.5" style="--spark-x:37px;--spark-y:29px"/><rect class="ypr-spark" x="77" y="45" width="6" height="6" rx="1" style="--spark-x:-8px;--spark-y:-43px"/><path class="ypr-spark" d="M80 43l5 5-5 5-5-5z" style="--spark-x:8px;--spark-y:43px"/><circle class="ypr-spark" cx="80" cy="48" r="2.5" style="--spark-x:-52px;--spark-y:4px"/><rect class="ypr-spark" x="77" y="45" width="6" height="6" rx="1" style="--spark-x:51px;--spark-y:5px"/></svg></span><button type="button" data-ypr-complete><span data-i18n="course.content.text068">Terminar esta clase</span><span class="ypr-ready-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span></button><p data-ypr-status role="status" aria-live="polite"><span data-i18n="course.content.text069">Termina las decisiones de la clase antes de cerrarla.</span></p></nav>
+    </figure><nav class="ypr-controls" aria-label="Finalizar la clase" data-i18n-aria-label="completion.nav"><span class="ypr-celebration" aria-hidden="true"><svg viewBox="0 0 160 96" focusable="false" xmlns="http://www.w3.org/2000/svg"><circle class="ypr-ring" cx="80" cy="48" r="19"/><path class="ypr-check" d="M68 49l8 8 17-19"/><circle class="ypr-spark" cx="80" cy="48" r="3" style="--spark-x:-47px;--spark-y:-24px"/><rect class="ypr-spark ypr-spark--orange ypr-spark--late" x="77" y="45" width="6" height="6" rx="1" style="--spark-x:43px;--spark-y:-27px"/><path class="ypr-spark ypr-spark--blue" d="M80 43l5 5-5 5-5-5z" style="--spark-x:-34px;--spark-y:27px"/><circle class="ypr-spark ypr-spark--later" cx="80" cy="48" r="2.5" style="--spark-x:37px;--spark-y:29px"/><rect class="ypr-spark ypr-spark--orange ypr-spark--late" x="77" y="45" width="6" height="6" rx="1" style="--spark-x:-8px;--spark-y:-43px"/><path class="ypr-spark ypr-spark--later" d="M80 43l5 5-5 5-5-5z" style="--spark-x:8px;--spark-y:43px"/><circle class="ypr-spark ypr-spark--blue ypr-spark--late" cx="80" cy="48" r="2.5" style="--spark-x:-52px;--spark-y:4px"/><rect class="ypr-spark ypr-spark--orange ypr-spark--later" x="77" y="45" width="6" height="6" rx="1" style="--spark-x:51px;--spark-y:5px"/></svg></span><button type="button" data-ypr-complete><span data-i18n="course.content.text068">Terminar esta clase</span><span class="ypr-ready-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></span></button><p data-ypr-status role="status" aria-live="polite"><span data-i18n="course.content.text069">Termina las decisiones de la clase antes de cerrarla.</span></p></nav>
           </section>
       </div>
     </article>
