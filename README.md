@@ -9,12 +9,12 @@
 
 ## 1. Resumen Ejecutivo y Propósito
 
-Este paquete contiene la plantilla interactiva para plataformas de aprendizaje virtual (LMS) del reto **«Un aviso a tiempo»**. El diseño sigue una arquitectura web moderna, ligera y auto-contenida (Vanilla HTML5, CSS3 modular y JavaScript ES6+ sin dependencias de frameworks externos como React o TailwindCSS), optimizada para carga instantánea, compatibilidad transversal en navegadores de escritorio y dispositivos móviles, y cumplimiento estricto de los estándares de accesibilidad **WCAG 2.1 Nivel AA**.
+Este paquete contiene la plantilla interactiva para plataformas de aprendizaje virtual (LMS) del reto **«Un aviso a tiempo»**. El diseño sigue una arquitectura web moderna, ligera y auto-contenida (Vanilla HTML5, CSS3 modular y JavaScript ES6+ sin dependencias de frameworks externos como React o TailwindCSS), optimizada para carga instantánea, compatibilidad transversal en navegadores de escritorio y dispositivos móviles, y diseñada con criterios de accesibilidad **WCAG 2.1 AA**. La conformidad debe comprobarse además con tecnologías de asistencia y en el LMS de destino.
 
 ### Objetivos Clave de la Implementación
 1. **Resolución de Bugs Móviles Históricos:** Corrección definitiva de reglas CSS de ocultamiento indiscriminado en pantallas móviles (<= 520px) que impedían visualizar el selector tipográfico y los glifos de tema (Sol/Luna).
 2. **Sistema Multi-Tema Refinado:** Rediseño conceptual de paletas con nomenclatura clara («Día» y «Sol» para fondos claros; «Noche» y «Estrella» para fondos oscuros), sincronización bidireccional entre el control rápido de cabecera y el panel de Ajustes, y contraste no textual garantizado (SC 1.4.11 > 3:1).
-3. **Accesibilidad Universal (a11y):** Estructura semántica ARIA rigurosa, soporte completo de navegación por teclado, foco visible reforzado, soporte nativo de `prefers-reduced-motion` y áreas táctiles mínimas de 44×44 px.
+3. **Accesibilidad (a11y):** Semántica, navegación por teclado, foco visible, `prefers-reduced-motion` y objetivos táctiles diseñados según criterios WCAG 2.1 AA; la conformidad requiere pruebas con tecnologías de asistencia y el LMS de destino.
 4. **Interactividad Progresiva:** Ayudas contextuales desplegables (`<details>/<summary>`) activables por teclado y tacto, micro-animaciones fluidas en ilustraciones SVG al interactuar con opciones, y contadores de progreso reactivos.
 5. **Internacionalización Desacoplada (i18n):** Carga opcional mediante diccionario JSON externo (`i18n.json`) y conector modular (`lms-i18n.js`), con arquitectura *graceful degradation* (fallback nativo bilingüe inline) y canal de eventos para hosts LMS.
 
@@ -26,7 +26,7 @@ Este paquete contiene la plantilla interactiva para plataformas de aprendizaje v
 | :--- | :--- | :--- |
 | `C04-reto-un-aviso-a-tiempo (nuevo).html` | **Plantilla Maestra** | Documento interactivo para el alumno. Integra los estilos CSS encapsulados, marcado HTML5 semántico, componentes didácticos y controladores de estado cliente. |
 | `C04-reto-un-aviso-a-tiempo(antiguo).html` | **Línea Base Histórica** | Archivo original de partida conservado intacto para trazabilidad, comparaciones de regresión y auditorías de código. |
-| `i18n.json` | **Diccionario Externo** | Repositorio de 146 claves por idioma (`es` y `en`) con todas las cadenas de interfaz, accesibilidad, textos pedagógicos y respuestas. |
+| `i18n.json` | **Diccionario Externo** | Repositorio de 172 claves hoja por idioma (`es` y `en`) con todas las cadenas de interfaz, accesibilidad, textos pedagógicos y respuestas. |
 | `lms-i18n.js` | **Conector LMS** | Script ligero y asíncrono para consumir `i18n.json`, traducir el árbol DOM, actualizar atributos ARIA y responder a eventos `tp:languagechange`. |
 | `cambios.md` | **Registro de Cambios** | Historial técnico de auditoría y transformaciones detalladas respecto al original antiguo. |
 | `README.md` | **Manual Técnico** | Documentación de arquitectura, diseño, contrastes, accesibilidad e instrucciones de despliegue. |
@@ -35,15 +35,15 @@ Este paquete contiene la plantilla interactiva para plataformas de aprendizaje v
 
 ## 3. Arquitectura del Diseño, Temas y Responsive
 
-### 3.1. Nomenclatura y Configuración de Paletas
-La plantilla cuenta con cuatro variantes de visualización organizadas en dos modos maestros:
+### 3.1. Nomenclatura y configuración de paletas
+La plantilla ofrece cuatro combinaciones, cada una definida con tokens de fondo, superficies, texto, acento y bordes:
 
-*   **Modo Claro (`data-theme="light"`):**
-    *   **«Día»** (`data-paper="white"`): Fondo blanco puro (`#FFFFFF`) con superficie suave (`#F5F7F7`). Diseñado para entornos con alta iluminación ambiental.
-    *   **«Sol»** (`data-paper="cream"`): Fondo cálido apergaminado (`#F7F4EC`) con superficie suave (`#EDECE5`). Diseñado para reducir la fatiga visual en sesiones prolongadas.
-*   **Modo Oscuro (`data-theme="dark"`):**
-    *   **«Noche»** (`data-ink="brand"`): Fondo azul petróleo profundo (`#00343C`) con superficies en `#0D3E46`.
-    *   **«Estrella»** (`data-ink="alt"`): Fondo teal oscuro refinado (`#004650`) con superficies en `#0D4F59` (reemplaza con ventaja estética al antiguo tono plano «Petróleo»).
+* **Día** (`data-paper="white"`): blanco neutro con superficies gris azulado muy claro.
+* **Sol** (`data-paper="cream"`): fondo cálido suave (`#FBF6EC`) con superficies cálidas coordinadas.
+* **Noche** (`data-ink="brand"`): azul pizarra oscuro (`#172A33`) y superficies graduadas.
+* **Estrella** (`data-ink="alt"`): verde petróleo oscuro (`#2B4046`) y superficies graduadas.
+
+Los colores predeterminados se mantienen alineados con `tpBrandCss`, el generador usado cuando el LMS entrega una marca. Ese generador debe volver a medirse si cambian los colores de marca; los valores de esta sección describen el conjunto predeterminado.
 
 ### 3.2. Sincronización Bidireccional de Controles
 Existen dos puntos de interacción para alternar el modo:
@@ -61,30 +61,29 @@ Ambos controles comparten el despachador central `toggleTheme()` y actualizan si
 *   **Rueda de Ajustes (`.tp-prefs-btn svg`):** Gira sutilmente hacia la derecha (+55°) al abrirse (`.turn-open`) y hacia la izquierda (-55°) al cerrarse (`.turn-close`).
 *   **Control de movimiento reducido:** La función `replayMotionClass()` consulta activamente `matchMedia('(prefers-reduced-motion: reduce)')`. Si el usuario tiene activada la reducción de movimiento en su sistema operativo, las clases de animación no se aplican y la transición visual se realiza de forma estática e instantánea.
 
-### 3.4. Tipografía y Responsive Mobile-First
-*   **Fuentes disponibles:** Inter (Sans por defecto), Literata (Serif editorial), Atkinson Hyperlegible (diseñada específicamente para baja visión) y Sistema (fuente nativa del dispositivo).
-*   **Escalado Tipográfico Dinámico:** Se implementa `clamp()` para la fuente base del cuerpo:
-    $$\text{Font Size} = \text{clamp}(16\text{ px}, 15.6\text{ px} + 0.35\text{vw}, 17\text{ px})$$
-*   **Objetivos Táctiles (Touch Targets):** Todos los botones del selector de tamaños (`data-sizes`), paletas (`data-only-light`, `data-only-dark`) y conmutadores cumplen con un mínimo de **44×44 px** (o altura mínima de 44 px en comboboxes y toggles extendidos).
-*   **Eliminación de Desbordamiento:** El panel de lectura y la barra de herramientas han sido auditados en anchos desde **320 px hasta 1280 px**, garantizando `scrollWidth === innerWidth` (cero desbordamiento horizontal).
+### 3.4. Tipografía y responsive mobile-first
+* **Familias disponibles:** Sans clara (Inter con fallbacks del sistema) y Alta legibilidad (Atkinson Hyperlegible con fallbacks del sistema). La familia seleccionada se aplica tanto al contenido como a encabezados y controles. El código conserva su familia monoespaciada.
+* **Preferencias antiguas:** los valores `brand`, `serif` y `system` se normalizan a Sans clara; `legible` se conserva. El canal de preferencias del LMS sigue aceptando la propiedad `font`.
+* **Escalado de lectura:** el tamaño base se adapta con `clamp()`; los cinco tamaños de lectura siguen disponibles y el máximo llega a 200 %.
+* **Targets táctiles:** los controles principales y el cierre del índice tienen al menos 44 px de alto.
+* **Superficies móviles:** índice y ajustes se presentan como vistas de pantalla completa con áreas seguras. El contenido no se divide en grupos horizontales con scroll independiente; el viewport de la vista puede desplazarse completo cuando la altura o el zoom no permiten mostrar todas las opciones a la vez.
 
 ---
 
-## 4. Auditoría de Accesibilidad (WCAG 2.1 Nivel AA)
+## 4. Criterios y comprobaciones de accesibilidad (WCAG 2.1 AA)
 
-### 4.1. Medición de Ratios de Contraste
-Las cuatro combinaciones han sido validadas algorítmicamente bajo la fórmula de luminancia relativa de WCAG:
+### 4.1. Medición de ratios de contraste
+Ratios predeterminados calculados sobre las variables de la plantilla con la fórmula de luminancia relativa de WCAG. Los fondos de superficie se comprobaron además del fondo base. El texto principal, secundario y atenuado, los acentos, el texto sobre acento y los bordes cumplen WCAG AA en las cuatro combinaciones.
 
-| Métrica / Elemento | Criterio WCAG | Día (`white`) | Sol (`cream`) | Noche (`brand`) | Estrella (`alt`) | Estado |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Texto Principal (`--fg` vs `--bg`)** | SC 1.4.3 (>= 4.5:1) | **13.49 : 1** | **12.28 : 1** | **12.87 : 1** | **10.05 : 1** | **Pasa (AAA)** |
-| **Texto Secundario (`--fg-soft` vs `--bg`)** | SC 1.4.3 (>= 4.5:1) | **8.10 : 1** | **7.37 : 1** | **10.85 : 1** | **8.48 : 1** | **Pasa (AAA)** |
-| **Texto Apagado / Metadatos (`--muted`)** | SC 1.4.3 (>= 4.5:1) | **6.04 : 1** | **5.50 : 1** | **6.85 : 1** | **6.69 : 1** | **Pasa (AA)** |
-| **Acento Interactivo (`--accent` vs `--bg`)** | SC 1.4.3 (>= 4.5:1) | **10.54 : 1** | **9.59 : 1** | **6.27 : 1** | **4.90 : 1** | **Pasa (AA)** |
-| **Texto en Botón Acento (`--on-accent`)** | SC 1.4.3 (>= 4.5:1) | **10.05 : 1** | **10.05 : 1** | **6.27 : 1** | **4.90 : 1** | **Pasa (AA)** |
-| **Bordes de Controles (`--line-strong` vs soft)** | SC 1.4.11 (>= 3.0:1) | **3.42 : 1** | **3.10 : 1** | **4.39 : 1** | **3.72 : 1** | **Pasa (AA)** |
+| Métrica | Criterio | Día | Sol | Noche | Estrella |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| Texto principal (`--fg` / superficies) | 4.5:1 | 11.75:1 | 11.01:1 | 9.09:1 | 6.79:1 |
+| Texto secundario (`--fg-soft` / superficies) | 4.5:1 | 6.92:1 | 6.49:1 | 7.49:1 | 5.61:1 |
+| Texto atenuado (`--muted` / superficies) | 4.5:1 | 5.14:1 | 4.82:1 | 5.57:1 | 4.84:1 |
+| Acento y texto sobre acento | 4.5:1 | 5.27:1 | 4.94:1 | 4.82:1 | 4.81:1 |
+| Borde visible (`--line` / superficies) | 3:1 | 3.42:1 | 3.20:1 | 3.20:1 | 3.24:1 |
 
-*Nota sobre bordes:* El valor `--line-strong` fue ajustado estratégicamente a `#748A84` en modo claro, `#7EA6A3` en modo Noche y `#85ACA9` en modo Estrella para asegurar que las opciones de formulario (`.ydc-opt`), chips de arrastre y botones tengan límites discernibles con ratio > 3:1 frente a superficies adyacentes.
+Los valores publicados corresponden a los colores predeterminados. Los temas con colores de marca proporcionados por el LMS deben verificarse con los cuatro colores de marca efectivos antes de publicar.
 
 ### 4.2. Operación Completa por Teclado
 *   **Selector de Fuentes Personalizado:**
@@ -118,6 +117,9 @@ La plantilla integra una serie de componentes de aprendizaje activo que refuerza
 5.  **Seguimiento y Progreso (`.llr-progress` y `yulia:progress`):**
     *   Barra de progreso visual y región accesible `[data-ypr-status]` con `role="status"` y `aria-live="polite"`.
     *   Actualización reactiva al cambiar de idioma para mostrar cadenas perfectamente localizadas (ej. *«1 de 3 actividades realizadas»* / *«1 of 3 activities completed»*).
+6.  **Ayudas contextuales de decisión:**
+    *   Cada una de las cinco decisiones incluye un botón de ayuda con `aria-describedby` y una descripción `role="tooltip"`.
+    *   La ayuda se abre con foco de teclado, puntero o toque; se cierra con `Escape` o al salir del control y se ofrece en español e inglés.
 
 ---
 
@@ -168,7 +170,7 @@ En el archivo `C04-reto-un-aviso-a-tiempo (nuevo).html`, dentro de la etiqueta `
 
 ## 7. Verificación Técnica y Calidad (QA)
 
-La plantilla ha superado una batería de pruebas automatizadas con **Playwright** en Chrome Headless:
+El registro de cambios conserva resultados de una batería anterior de pruebas automatizadas con **Playwright** en Chrome Headless. Son resultados históricos y no sustituyen la validación de la revisión actual:
 
 1.  **Pruebas de Disposición Responsive:**
     *   Viewports evaluados: 320, 360, 375, 390, 520, 640, 768, 860, 861, 1024 y 1280 px.
@@ -177,7 +179,7 @@ La plantilla ha superado una batería de pruebas automatizadas con **Playwright*
     *   Verificado en viewport de 320 px con el ajuste tipográfico máximo (`xxl`). La columna de lectura se adapta sin cortar contenido ni expulsar elementos de la pantalla.
 3.  **Auditoría de Sintaxis:**
     *   Scripts inline y archivo `lms-i18n.js` verificados con el motor de análisis sintáctico de Node.js (`vm.Script`): **0 errores de sintaxis**.
-    *   Validación JSON de `i18n.json`: Parseo conforme con cobertura al 100% (146 claves por idioma, 0 claves faltantes).
+    *   Validación JSON histórica: el recuento actual es de 172 claves hoja por idioma (`es` y `en`), incluidas las ayudas y tooltips añadidos en esta revisión.
 4.  **Persistencia:**
     *   Validada la persistencia en `localStorage` de tamaño tipográfico, familia, tema y paleta seleccionada.
 
@@ -197,34 +199,27 @@ La plantilla ha superado una batería de pruebas automatizadas con **Playwright*
 
 ---
 
-## 9. Rediseño de Navegación Móvil y Cumplimiento Avanzado WCAG (Plan Maestro)
+## 9. Navegación y ajustes móviles
 
-### 9.1. Rediseño del Índice de Navegación Móvil (<= 860px)
-En pantallas móviles y tablets (`<= 860px`), la barra horizontal tradicional de chips consumía más de 100 px de altura vertical, ocultaba secciones fuera del viewport y carecía de scroll sincronizado. Se ha reemplazado por un **Menú Selector de Cabecera + Cajón Modal Inferior (Bottom-Sheet Drawer)**:
+### 9.1. Índice de secciones
+En anchos de hasta 860 px, el botón de cabecera abre el índice en una vista modal a pantalla completa. El viewport usa unidades dinámicas y respeta las áreas seguras del dispositivo. Los cinco destinos usan filas de ancho completo; el botón de cierre mide 44×44 px. Al abrirse, el foco pasa a la sección activa, el contenido de fondo queda inerte y el foco se mantiene dentro de la vista. Escape, el botón de cierre y la selección de una sección cierran el índice; después el foco vuelve al disparador.
 
-1.  **Botón Selector de Cabecera (`#llr-nav-btn`):**
-    *   Ubicado en la barra superior móvil (`.llr-topbar-nav`).
-    *   Muestra dinámicamente la sección activa y el progreso global: `X/5 · [Título de la sección]`.
-    *   Soporte ARIA completo: `aria-haspopup="dialog"`, `aria-expanded="false|true"`, `aria-controls="llr-toc"` y `aria-label` descriptivo.
-    *   Recupera más de 46 px de espacio vertical útil para la lectura en pantallas táctiles.
-2.  **Cajón Modal Inferior Accesible (`#llr-toc`):**
-    *   Se despliega suavemente desde la base de la pantalla mediante una animación `cubic-bezier(0.16, 1, 0.3, 1)`.
-    *   Fondo translúcido con desenfoque (`backdrop-filter: blur(4px)`) y telón (`#llr-toc-backdrop`) para aislar la experiencia de navegación.
-    *   Cabecera dedicada con título accesible (`data-i18n="navigation.tocRegion"`) y botón de cierre táctil (`#llr-toc-close`) de 44×44 px.
-    *   Ítems verticales de ancho completo con touch target superior a 48 px, tipografía legible e indicación visual de avance (checkmarks).
-3.  **Gestión de Foco y Trampa de Teclado (Focus Trap):**
-    *   Al abrirse, el foco se sitúa de inmediato en la sección activa o en el botón de cierre.
-    *   Trampa de foco estricta mediante captura de tecla `Tab` / `Shift+Tab`, impidiendo fugas de foco hacia el fondo de la página.
-    *   Cierre ágil mediante tecla `Escape`, clic sobre el telón (`#llr-toc-backdrop`), botón de cierre o selección de cualquier sección.
-    *   Al cerrarse, el foco se devuelve de forma garantizada al botón disparador `#llr-nav-btn`.
+### 9.2. Ajustes de lectura
+En anchos de hasta 860 px, Ajustes ocupa la pantalla completa con cabecera fija, botón de cierre, áreas seguras y controles dispuestos en una columna. Las opciones segmentadas se envuelven en filas, sin una franja con desplazamiento horizontal. Si la altura visible es reducida o el zoom supera el espacio disponible, se desplaza la vista completa como una unidad para que ningún ajuste quede inaccesible.
 
-### 9.2. Perfeccionamiento de Accesibilidad WCAG 2.1 AA
-*   **Sección Activa Dinámica (`aria-current="true"`):**
-    *   El enlace TOC correspondiente a la sección actualmente visible recibe dinámicamente `aria-current="true"`. Al hacer scroll fuera de la sección, el atributo se remueve limpiamente (WCAG SC 1.3.1 y 4.1.2).
-*   **Trampa de Foco en Ajustes de Lectura:**
-    *   El panel flotante `#tp-reading-settings` cuenta con un listener de foco cíclico que atrapa la navegación por tabulación mientras se encuentre abierto (`[open]`).
-*   **Escalabilidad Relativa en Opciones (WCAG SC 1.4.4):**
-    *   Se sustituyeron alturas fijas en `.ydc-opt` por unidades relativas `min-height: 3.25rem`, permitiendo que el texto crezca sin desbordamiento ni cortes bajo un zoom del 200% y en tamaño de fuente máximo (`xxl`).
-*   **Alineación Tipográfica Antirríos (WCAG SC 1.4.8):**
-    *   Se forzó alineación izquierda estricta (`text-align: left`) en resoluciones móviles (`< 768px`) y con fuentes grandes (`xl` y `xxl`), evitando la formación de "ríos de espacio blanco" desorientadores para lectores con dislexia o baja visión.
+En escritorio, Ajustes conserva su presentación flotante. Ambos modos admiten Escape, retorno del foco y el recorrido de teclado. Las animaciones respetan `prefers-reduced-motion`.
 
+### 9.3. Contraste y foco
+El generador de marca ajusta el texto y los bordes a ratios mínimos de contraste, además de ofrecer tokens para superficies y estados. Los valores predeterminados se reflejan en la tabla de la sección 4.1. La validación de cualquier combinación personalizada del LMS depende de medir los colores que entregue el host.
+
+## 10. Estado de validación (16 de octubre de 2026)
+
+- La tipografía de lectura y de interfaz se unificó en dos familias seleccionables; las preferencias antiguas se normalizan y las fuentes incrustadas que ya no se usan se retiraron.
+- Se actualizaron las cuatro paletas predeterminadas y el generador de marca. Se mejoró el contraste de líneas para que los bordes visibles también alcancen 3:1 en fondos y superficies.
+- El índice y Ajustes móvil usan vistas de pantalla completa con áreas seguras, controles de cierre de 44 px y estado modal. Las pruebas visuales en dispositivos y la comprobación con un LMS real siguen dependiendo de que el entorno permita abrir la plantilla allí.
+
+- Se incorporaron tooltips contextuales a las cinco decisiones. Cada botón tiene `aria-describedby`, estado `aria-expanded` y un destino `role="tooltip"`; se abren con foco o puntero y se cierran con `Escape` o al perder foco.
+- Las ayudas desplegables de cada decisión ahora explican la tarea concreta. Los textos se localizan en español e inglés, tanto desde el HTML autónomo como desde el diccionario LMS.
+- `i18n.json` contiene 172 claves hoja por idioma tras añadir el cierre traducible de Ajustes. El histórico de este documento y `cambios.md` tenía recuentos anteriores de 146 y 171.
+- La etiqueta de carga del conector LMS permanece desactivada hasta disponer de una ruta pública válida. La integración con un host LMS y las pruebas con lectores de pantalla requieren ese entorno y no se consideran verificadas aquí.
+- Las comprobaciones ejecutadas validan sintaxis de scripts, paridad de claves y estructura/asociación/localización de tooltips. No se pudo completar la interacción visual en navegador desde esta ejecución: el panel no permite abrir recursos locales mediante la política de URL. Tampoco se probó un LMS real ni lector de pantalla, por lo que no se afirma certificación WCAG completa.

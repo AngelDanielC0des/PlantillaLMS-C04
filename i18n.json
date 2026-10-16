@@ -17,7 +17,8 @@
       "size100": "Tamaño del texto: 100 %",
       "size112": "Tamaño del texto: 112 %",
       "size125": "Tamaño del texto: 125 %",
-      "size200": "Tamaño del texto: 200 %"
+      "size200": "Tamaño del texto: 200 %",
+      "close": "Cerrar ajustes"
     },
     "theme": {
       "toDark": "Cambiar a modo oscuro",
@@ -28,7 +29,12 @@
     },
     "activity": {
       "help": "Cómo funcionan las opciones",
-      "guidance": "Elige una respuesta para ver qué ocurre después. Puedes cambiarla cuando quieras."
+      "guidance": "Elige una respuesta para ver qué ocurre después. Puedes cambiarla cuando quieras.",
+      "guidancePlan": "Elige un paso pequeño que puedas probar en tu próximo turno.",
+      "guidanceAccept": "Aceptar el reto significa practicar el aviso y comprobar qué ha entendido la otra persona.",
+      "guidanceObstacle": "Si algo te lo impide, identifica el apoyo o el momento que necesitas.",
+      "guidanceReflection": "No hay una respuesta correcta: elige la opción que refleje tu experiencia.",
+      "guidanceScenario": "Confirma el estado antes de prometer una hora y acuerda cuándo volverás a informar."
     },
     "legacy": {
       "content": {
@@ -38,9 +44,9 @@
         "004": "A",
         "005": "A",
         "006": "A",
-        "007": "Inter",
+        "007": "Sans clara",
         "008": "Literata",
-        "009": "Hyperlegible",
+        "009": "Alta legibilidad",
         "010": "Del sistema",
         "011": "Día",
         "012": "Sol",
@@ -176,7 +182,17 @@
       "stepBadge": "Decisión {current} de {total}",
       "stepCompleted": "Completada",
       "stepPending": "Pendiente",
-      "revisitTip": "Opción ya explorada"
+      "revisitTip": "Opción ya explorada",
+      "tipPlanLabel": "Qué hace útil un aviso",
+      "tipAcceptLabel": "Qué significa confirmar",
+      "tipObstacleLabel": "Cómo detectar el apoyo necesario",
+      "tipReflectionLabel": "Para qué sirve esta reflexión",
+      "tipScenarioLabel": "Antes de dar una hora",
+      "tipPlan": "Un aviso útil concreta qué ocurre, a quién afecta y cuándo habrá una actualización.",
+      "tipAccept": "Pide a la otra persona que repita lo esencial; así puedes comprobar que el mensaje llegó como esperabas.",
+      "tipObstacle": "Nombra el obstáculo concreto y acuerda una ayuda o un siguiente paso realista.",
+      "tipReflection": "Tu respuesta ayuda a elegir qué conviene practicar o revisar después.",
+      "tipScenario": "Distingue lo confirmado de lo pendiente y comunica cuándo volverás con una actualización."
     },
     "navigation": {
       "openToc": "Abrir índice de secciones",
@@ -203,7 +219,8 @@
       "size100": "Text size: 100%",
       "size112": "Text size: 112%",
       "size125": "Text size: 125%",
-      "size200": "Text size: 200%"
+      "size200": "Text size: 200%",
+      "close": "Close settings"
     },
     "theme": {
       "toDark": "Switch to dark mode",
@@ -214,7 +231,12 @@
     },
     "activity": {
       "help": "How the choices work",
-      "guidance": "Choose an answer to see what happens next. You can change it at any time."
+      "guidance": "Choose an answer to see what happens next. You can change it at any time.",
+      "guidancePlan": "Choose one small step you can try on your next shift.",
+      "guidanceAccept": "Accepting the challenge means practising the update and checking what the other person understood.",
+      "guidanceObstacle": "If something gets in the way, identify the support or timing you need.",
+      "guidanceReflection": "There is no right answer: choose the option that reflects your experience.",
+      "guidanceScenario": "Confirm the status before promising a time, and agree when you will update the guest again."
     },
     "legacy": {
       "content": {
@@ -224,9 +246,9 @@
         "004": "A",
         "005": "A",
         "006": "A",
-        "007": "Inter",
+        "007": "Clear sans",
         "008": "Literata",
-        "009": "Hyperlegible",
+        "009": "High legibility",
         "010": "System",
         "011": "Day",
         "012": "Sun",
@@ -362,7 +384,17 @@
       "stepBadge": "Decision {current} of {total}",
       "stepCompleted": "Completed",
       "stepPending": "Pending",
-      "revisitTip": "Previously explored option"
+      "revisitTip": "Previously explored option",
+      "tipPlanLabel": "What makes an update useful",
+      "tipAcceptLabel": "What confirmation means",
+      "tipObstacleLabel": "How to identify needed support",
+      "tipReflectionLabel": "Why this reflection helps",
+      "tipScenarioLabel": "Before giving a time",
+      "tipPlan": "A useful update says what happened, who is affected, and when the next update will come.",
+      "tipAccept": "Ask the other person to repeat the essentials so you can check the message landed as intended.",
+      "tipObstacle": "Name the specific obstacle and agree on practical support or a realistic next step.",
+      "tipReflection": "Your answer helps identify what to practise or revisit next.",
+      "tipScenario": "Separate what is confirmed from what is still pending, and say when you will provide an update."
     },
     "navigation": {
       "openToc": "Open table of contents",

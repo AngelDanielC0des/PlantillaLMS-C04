@@ -5,15 +5,15 @@
 **Archivo de entrega actualizado:** `C04-reto-un-aviso-a-tiempo (nuevo).html`  
 **Entorno de desarrollo:** Repositorio Git local y worktree aislado `.worktrees/c04-ux-a11y-i18n`  
 **Fecha de intervención y cierre:** 16 de octubre de 2026  
-**Estándar de conformidad:** WCAG 2.1 Nivel AA / Mobile-First / Vanilla Web Components  
+**Objetivo de accesibilidad:** WCAG 2.1 AA / Mobile-First / componentes web vanilla
 
 ---
 
 ## 1. Resumen Ejecutivo de la Intervención
 
-Este documento certifica y detalla de manera exhaustiva todas las modificaciones realizadas sobre la plantilla interactiva para LMS `C04 – Reto: Un aviso a tiempo`, tomando como punto de comparación estricto el archivo histórico original `C04-reto-un-aviso-a-tiempo(antiguo).html`.
+Este documento registra las modificaciones realizadas sobre la plantilla interactiva para LMS `C04 – Reto: Un aviso a tiempo`, tomando como punto de comparación el archivo histórico original `C04-reto-un-aviso-a-tiempo(antiguo).html`.
 
-Las mejoras resuelven los problemas visuales críticos detectados en dispositivos móviles, rediseñan y sincronizan el sistema multi-tema, garantizan el cumplimiento de accesibilidad WCAG 2.1 AA en contrastes y navegación por teclado, añaden interactividad guiada al formulario y proporcionan una arquitectura de internacionalización desacoplada lista para integración en plataformas LMS corporativas.
+Las mejoras resuelven los problemas visuales críticos detectados en dispositivos móviles, rediseñan y sincronizan el sistema multi-tema, mejoran contraste y navegación por teclado con criterios WCAG 2.1 AA, añaden interactividad guiada al formulario y proporcionan una arquitectura de internacionalización desacoplada lista para integración en plataformas LMS corporativas.
 
 ---
 
@@ -180,15 +180,37 @@ Cálculos de luminancia relativa algorítmica:
 
 ## 6. Registro de Integridad Criptográfica (Hashes SHA-256)
 
+> Los hashes de esta tabla corresponden a una instantánea anterior y no describen el estado actual tras las revisiones posteriores registradas al final del documento.
+
 Hashes calculados sobre los archivos finales entregados en el paquete:
 
 | Archivo | Hash SHA-256 | Estado |
 | :--- | :--- | :--- |
-| `C04-reto-un-aviso-a-tiempo (nuevo).html` | `72DD8C886343B1B7CBB3EEE87F1FC1B27220185B0BDD476A7A41EF05E7199AB1` | Modificado, optimizado y auditado |
+| `C04-reto-un-aviso-a-tiempo (nuevo).html` | `AD398EEEB822D3678CCB5B22CA6E20922FFFAD2E7E9879179A5B757539C19E82` | Modificado, optimizado y auditado |
 | `C04-reto-un-aviso-a-tiempo(antiguo).html` | `836A4D99B4174F145E86B274D97A49E94E4DA9C32CBEC652291E8BA95581A19D` | Original histórico intacto |
-| `i18n.json` | `899F2A4F1DEC266D55E0CC16518534452A372B7E8F327609AF06199CC46C7FFB` | Diccionario bilingüe ampliado |
+| `i18n.json` | `69291268CA22C62674359BE14ED3DE4E158D2AFD06B2B5C8F2648947F000B7B2` | Diccionario bilingüe ampliado |
 | `lms-i18n.js` | `E80B9625001B57544B7A6F78BEEA070ECB07738A1685506D8C4ADF3144C8E68D` | Conector LMS |
-| `README.md` | `708614EC38045C229E5889E1DAF8AA100FD55A7CB524973F1C0D0700CD590608` | Manual técnico |
+| `README.md` | `CC31D92FF2E7CE06DAD7B3A3D8944D7B24DD205F895344727746FE1DA1FC77DF` | Manual técnico |
 | `cambios.md` | *(Este documento)* | Registro de cambios |
 
 
+
+
+## 7. Revisión de tooltips, localización y estado documental (16 de octubre de 2026)
+
+- Se reemplazaron las ayudas genéricas repetidas por instrucciones específicas para cada una de las cinco decisiones (`plan`, `aceptar`, `obstaculo`, `valoracion` y `antes`).
+- Se añadieron tooltips contextuales con botones de 44 × 44 px, `aria-describedby`, `aria-expanded` y destinos con `role="tooltip"`. El comportamiento abre con foco o puntero, cierra con `Escape` y al perder foco o salir el puntero.
+- Los rótulos y contenidos de ayuda están disponibles en español e inglés en `i18n.json`, con respaldo bilingüe gestionado por la plantilla.
+- El diccionario contiene ahora 172 claves hoja por idioma; el recuento de 146 registrado en entradas previas era anterior a las ampliaciones.
+- La documentación limita expresamente los resultados Playwright anteriores a su alcance histórico. Esta actualización no certifica compatibilidad con lectores de pantalla ni integración con un LMS real; la etiqueta opt-in del cargador continúa comentada hasta tener URL pública y configuración de origen.
+- Verificación ejecutada: los dos scripts inline pasan `vm.Script`; `i18n.json` contiene 172 claves hoja en cada idioma con paridad entre `es` y `en`; la inspección estática confirma cinco decisiones, cinco ayudas contextuales, destinos `role="tooltip"`, asociaciones `aria-describedby`, cierre Escape y ganchos de localización. No se completó interacción visual en navegador ni verificación en LMS/lector de pantalla: el panel disponible rechazó la apertura del recurso local por su política de URL. No se afirma certificación WCAG completa.
+
+
+## 8. Tipografía, paletas y vistas móviles (16 de octubre de 2026)
+
+- Se unificó la familia de texto entre lectura, títulos y controles con dos opciones: Sans clara (Inter) y Alta legibilidad (Atkinson Hyperlegible). Se retiraron las fuentes Literata y Space Grotesk y se conservaron los fallbacks del sistema y la fuente monoespaciada de código.
+- La lectura de preferencias convierte los valores antiguos `brand`, `serif` y `system` a `sans`; conserva `legible`, el resto de opciones y el contrato del canal `thepower:apply`. La selección se refleja en el atributo `data-font`, el menú, la persistencia y los iframes de actividades.
+- Se actualizaron las cuatro paletas predeterminadas. El generador de marca ahora busca contraste de texto contra la superficie más exigente, incluido el papel cálido, y eleva los colores de borde a 3.2:1 como margen de implementación.
+- El índice móvil y Ajustes usan vistas de pantalla completa con `100dvh`, áreas seguras, botón de cierre táctil de 44 px, foco modal y fondo inerte. Las opciones segmentadas de Ajustes envuelven sus filas; se evita el desplazamiento horizontal independiente. En alturas muy reducidas o con zoom elevado, el viewport completo de cada vista puede desplazarse para mantener todos los controles accesibles.
+- `i18n.json` contiene 172 claves hoja por idioma con paridad entre español e inglés. Se actualizó la tabla de contraste de `README.md` con ratios mínimos entre cada conjunto de superficies y texto/controles.
+- Verificación de esta intervención: análisis de contraste por código para las cuatro paletas predeterminadas; evaluación de los tokens generados frente a CSS; comprobaciones de sintaxis de scripts y paridad de traducciones. La interacción visual en un navegador móvil, lectores de pantalla y un LMS real siguen sin verificarse en este entorno.
